@@ -6,7 +6,7 @@ import lk.ijse.gdse.loslibros.dto.AuthorDTO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface AuhtorBO extends SuperBO {
+public interface AuthorBO extends SuperBO {
 
     public ArrayList<AuthorDTO> getAll() throws SQLException;
 
@@ -15,5 +15,6 @@ public interface AuhtorBO extends SuperBO {
     public boolean save(AuthorDTO authorDTO) throws SQLException ;
 
     public boolean update(AuthorDTO authorDTO) throws SQLException;
+
     public boolean delete(String dto) throws SQLException;
 }

@@ -1,8 +1,6 @@
 package lk.ijse.gdse.loslibros.dao;
 
-import lk.ijse.gdse.loslibros.dao.custom.impl.AuhtorDAOImpl;
-import lk.ijse.gdse.loslibros.dao.custom.impl.CustomerDAOImpl;
-import lk.ijse.gdse.loslibros.dao.custom.impl.SqlDAOImpl;
+import lk.ijse.gdse.loslibros.dao.custom.impl.*;
 
 public class DAOFactory {
 
@@ -17,7 +15,7 @@ public class DAOFactory {
 
     public enum DAOType {
         CUSTOMER,
-        SQL,AUTHOR
+        SQL, CATEGORY, AUTHOR
     }
 
     public SuperDAO getDAO(DAOType type) {
@@ -27,7 +25,9 @@ public class DAOFactory {
                 case SQL:
                     return new SqlDAOImpl();
                     case AUTHOR:
-                        return new AuhtorDAOImpl();
+                        return new AuthorDAOImpl();
+                        case CATEGORY:
+                            return (SuperDAO) new CategoryDAOImpl();
             default:
                 return null;
         }

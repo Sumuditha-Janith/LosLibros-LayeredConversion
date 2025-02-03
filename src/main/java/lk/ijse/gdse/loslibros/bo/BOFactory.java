@@ -1,6 +1,6 @@
 package lk.ijse.gdse.loslibros.bo;
 
-import lk.ijse.gdse.loslibros.bo.custom.impl.AuhtorBOmpl;
+import lk.ijse.gdse.loslibros.bo.custom.impl.AuthorBOImpl;
 import lk.ijse.gdse.loslibros.bo.custom.impl.CustomerBOImpl;
 
 public class BOFactory {
@@ -11,7 +11,7 @@ public class BOFactory {
     }
 
     public enum BOType {
-        CUSTOMER,AUTHOR
+        CUSTOMER,AUTHOR,CATEGORY
     }
 
     public SuperBO getSuperBO(BOType type) {
@@ -19,7 +19,8 @@ public class BOFactory {
             case CUSTOMER:
                 return new CustomerBOImpl();
                 case AUTHOR:
-                    return new AuhtorBOmpl();
+                    return new AuthorBOImpl();
+                    case CATEGORY:
                 default:
                     return null;
         }

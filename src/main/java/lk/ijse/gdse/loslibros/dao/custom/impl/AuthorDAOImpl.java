@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class AuhtorDAOImpl implements AuthorDAO {
+public class AuthorDAOImpl implements AuthorDAO {
 
     public ArrayList<Author> getAll() throws SQLException {
         ResultSet rst = SQLUtil.execute("select * from author");

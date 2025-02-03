@@ -9,7 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 import lk.ijse.gdse.loslibros.bo.BOFactory;
-import lk.ijse.gdse.loslibros.bo.custom.AuhtorBO;
+import lk.ijse.gdse.loslibros.bo.custom.AuthorBO;
 import lk.ijse.gdse.loslibros.dto.AuthorDTO;
 import lk.ijse.gdse.loslibros.dto.tm.AuthorTM;
 
@@ -161,7 +161,7 @@ public class AuthorFormController {
 
     }
 
-    AuhtorBO authorBO = (AuhtorBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.AUTHOR);
+    AuthorBO authorBO = (AuthorBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.AUTHOR);
 
     private void loadTableData() throws SQLException, ClassNotFoundException {
         ArrayList<AuthorDTO> authorDTOS = authorBO.getAll();
