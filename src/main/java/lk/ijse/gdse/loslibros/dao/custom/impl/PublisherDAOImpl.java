@@ -1,33 +1,32 @@
-package lk.ijse.gdse.loslibros.model;
+package lk.ijse.gdse.loslibros.dao.custom.impl;
 
-import lk.ijse.gdse.loslibros.dto.PublisherDTO;
 import lk.ijse.gdse.loslibros.dao.SQLUtil;
+import lk.ijse.gdse.loslibros.dao.custom.PublisherDAO;
+import lk.ijse.gdse.loslibros.dto.PublisherDTO;
+import lk.ijse.gdse.loslibros.entity.Publisher;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class PublisherModel {
+public class PublisherDAOImpl implements PublisherDAO {
 
-    public ArrayList<PublisherDTO> getAllPublishers() throws SQLException, ClassNotFoundException {
+    public ArrayList<Publisher> getAll() throws SQLException {
         ResultSet rst = SQLUtil.execute("select * from publisher");
 
-        ArrayList<PublisherDTO> publisherDTOS = new ArrayList<>();
+        ArrayList<Publisher> publisherList = new ArrayList<>();
 
         while (rst.next()) {
-            PublisherDTO publisherDTO = new PublisherDTO(
+            Publisher publisher = new Publisher(
                     rst.getString(1),
                     rst.getString(2)
-
             );
-            publisherDTOS.add(publisherDTO);
+            publisherList.add(publisher);
         }
-        return publisherDTOS;
-
+        return publisherList;
     }
 
-
-    public String getNextPublisherId() throws SQLException {
+    public String getNextId() throws SQLException {
         ResultSet rst = SQLUtil.execute("select pub_id from publisher order by pub_id desc limit 1");
 
         if (rst.next()) {
@@ -52,25 +51,23 @@ public class PublisherModel {
         return "PB01";
     }
 
-
-    public boolean savePublisher(PublisherDTO publisherDTO) throws SQLException {
+    public boolean save(Publisher publisher) throws SQLException {
         return SQLUtil.execute(
-                "insert into publisher values (?,?)",
-                publisherDTO.getPublisherId(),
-                publisherDTO.getPublisherName()
+                "insert into publisher VALUES (?, ?)",
+                publisher.getPublisherId(),
+                publisher.getPublisherName()
         );
     }
 
-    public boolean updatePublisher(PublisherDTO publisherDTO) throws SQLException {
+    public boolean update(Publisher publisher) throws SQLException {
         return SQLUtil.execute(
                 "update publisher set pub_name=? where pub_id=?",
-                publisherDTO.getPublisherName(),
-                publisherDTO.getPublisherId()
+                publisher.getPublisherName(),
+                publisher.getPublisherId()
         );
-
     }
 
-    public boolean deletePublisher(String publisherId) throws SQLException {
+    public boolean delete(String publisherId) throws SQLException {
         return SQLUtil.execute("delete from publisher where pub_id=?", publisherId);
     }
 
@@ -93,10 +90,8 @@ public class PublisherModel {
             return new PublisherDTO(
                     rst.getString(1),
                     rst.getString(2)
-
             );
         }
         return null;
     }
-
 }

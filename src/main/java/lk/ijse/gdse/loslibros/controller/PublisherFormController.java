@@ -8,9 +8,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
+import lk.ijse.gdse.loslibros.bo.BOFactory;
+import lk.ijse.gdse.loslibros.bo.custom.PublisherBO;
 import lk.ijse.gdse.loslibros.dto.PublisherDTO;
 import lk.ijse.gdse.loslibros.dto.tm.PublisherTM;
-import lk.ijse.gdse.loslibros.model.PublisherModel;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class PublisherFormController {
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDeleted = publisherModel.deletePublisher(publisherId);
+            boolean isDeleted = publisherBO.delete(publisherId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Publisher deleted").show();
@@ -83,7 +84,7 @@ public class PublisherFormController {
                 publisherName
         );
 
-        boolean isSaved = publisherModel.savePublisher(publisherDTO);
+        boolean isSaved = publisherBO.save(publisherDTO);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Publisher saved...!").show();
@@ -107,7 +108,7 @@ public class PublisherFormController {
                 publisherName
         );
 
-        boolean isUpdated = publisherModel.updatePublisher(publisherDTO);
+        boolean isUpdated = publisherBO.update(publisherDTO);
         if (isUpdated) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Publisher updated...!").show();
@@ -146,7 +147,7 @@ public class PublisherFormController {
     }
 
     private void loadNextPublisherId() throws SQLException {
-        String nextPublisherId = publisherModel.getNextPublisherId();
+        String nextPublisherId = publisherBO.getNextId();
         lblPublisherId.setText(nextPublisherId);
     }
 
@@ -164,10 +165,10 @@ public class PublisherFormController {
 
     }
 
-    PublisherModel publisherModel = new PublisherModel();
+    PublisherBO publisherBO = (PublisherBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.PUBLISHER);
 
     private void loadTableData() throws SQLException, ClassNotFoundException {
-        ArrayList<PublisherDTO> publisherDTOS = publisherModel.getAllPublishers();
+        ArrayList<PublisherDTO> publisherDTOS = publisherBO.getAll();
 
         ObservableList<PublisherTM> publisherTMS = FXCollections.observableArrayList();
 

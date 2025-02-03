@@ -11,8 +11,10 @@ import javafx.scene.input.MouseEvent;
 
 import lk.ijse.gdse.loslibros.dao.custom.AuthorDAO;
 import lk.ijse.gdse.loslibros.dao.custom.CategoryDAO;
+import lk.ijse.gdse.loslibros.dao.custom.PublisherDAO;
 import lk.ijse.gdse.loslibros.dao.custom.impl.AuthorDAOImpl;
 import lk.ijse.gdse.loslibros.dao.custom.impl.CategoryDAOImpl;
+import lk.ijse.gdse.loslibros.dao.custom.impl.PublisherDAOImpl;
 import lk.ijse.gdse.loslibros.dto.*;
 import lk.ijse.gdse.loslibros.dto.tm.BookTM;
 import lk.ijse.gdse.loslibros.model.*;
@@ -210,7 +212,7 @@ public class BookFormController implements Initializable {
     @FXML
     void cmbPublisherOnAction(ActionEvent event) throws SQLException {
         String selectedPublisherId = (String) cmbPublisherId.getSelectionModel().getSelectedItem();
-        PublisherDTO publisherDTO = publisherModel.findPublisherById(selectedPublisherId);
+        PublisherDTO publisherDTO = publisherDAO.findPublisherById(selectedPublisherId);
 
         if (publisherDTO != null) {
             lblPublisherName.setText(publisherDTO.getPublisherName());
@@ -255,7 +257,8 @@ public class BookFormController implements Initializable {
 //    private final AuthorModel authorModel = new AuthorModel();
     private final CategoryDAO categoryDAO = new CategoryDAOImpl();
 //    private final CategoryModel categoryModel = new CategoryModel();
-    private final PublisherModel publisherModel = new PublisherModel();
+    private final PublisherDAO publisherDAO = new PublisherDAOImpl();
+//    private final PublisherModel publisherModel = new PublisherModel();
     private final SupplierModel supplierModel = new SupplierModel();
 
 
@@ -354,7 +357,7 @@ public class BookFormController implements Initializable {
     }
 
     private void loadPublisherIds() throws SQLException {
-        ArrayList<String> publisherIds = publisherModel.getAllPublisherIds();
+        ArrayList<String> publisherIds = publisherDAO.getAllPublisherIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(publisherIds);
         cmbPublisherId.setItems(observableList);
