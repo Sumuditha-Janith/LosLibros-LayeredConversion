@@ -9,10 +9,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
+import lk.ijse.gdse.loslibros.dao.custom.EmployeeDAO;
+import lk.ijse.gdse.loslibros.dao.custom.impl.EmployeeDAOImpl;
 import lk.ijse.gdse.loslibros.dto.EmployeeDTO;
 import lk.ijse.gdse.loslibros.dto.EmployeePayrollDTO;
 import lk.ijse.gdse.loslibros.dto.tm.EmployeePayrollTM;
-import lk.ijse.gdse.loslibros.model.EmployeeModel;
 import lk.ijse.gdse.loslibros.model.EmployeePayrollModel;
 
 import java.net.URL;
@@ -170,7 +171,7 @@ public class EmployeePayrollFormController implements Initializable {
     void cmbEmployeeOnAction(ActionEvent event) throws SQLException {
 
         String selectedPayFormEmpId = cmbEmployeeIdPf.getSelectionModel().getSelectedItem();
-        EmployeeDTO employeeDTO = employeeModel.findEmpById(selectedPayFormEmpId);
+        EmployeeDTO employeeDTO = employeeDAO.findEmpById(selectedPayFormEmpId);
 
         if (employeeDTO != null) {
             lblEmployeeNamePf.setText(employeeDTO.getEmpName());
@@ -274,11 +275,13 @@ public class EmployeePayrollFormController implements Initializable {
 
     }
 
-    private final EmployeeModel employeeModel = new EmployeeModel();
+    private final EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+//    private final EmployeeModel employeeModel = new EmployeeModel();
+
 
     private void loadEmpIds() throws SQLException {
 
-        ArrayList<String> employeeIds = employeeModel.getAllEmployIds();
+        ArrayList<String> employeeIds = employeeDAO.getAllEmployIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(employeeIds);
         cmbEmployeeIdPf.setItems(observableList);

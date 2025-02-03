@@ -9,9 +9,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
+import lk.ijse.gdse.loslibros.bo.BOFactory;
+import lk.ijse.gdse.loslibros.bo.custom.EmployeeBO;
 import lk.ijse.gdse.loslibros.dto.EmployeeDTO;
 import lk.ijse.gdse.loslibros.dto.tm.EmployeeTM;
-import lk.ijse.gdse.loslibros.model.EmployeeModel;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -122,7 +123,7 @@ public class EmployeeFormController implements Initializable {
                 employeeEmail
         );
 
-        boolean isSaved =employeeModel.saveEmployee(employeeDTO);
+        boolean isSaved = employeeBO.save(employeeDTO);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Employee saved...!").show();
@@ -175,7 +176,7 @@ public class EmployeeFormController implements Initializable {
 
 
 
-        boolean isUpdate = employeeModel.updateEmployee(employeeDTO);
+        boolean isUpdate = employeeBO.update(employeeDTO);
         if (isUpdate) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Employee updated...!").show();
@@ -193,7 +194,7 @@ public class EmployeeFormController implements Initializable {
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDeleted = employeeModel.deleteEmployee(employeeId);
+            boolean isDeleted = employeeBO.delete(employeeId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Employee deleted").show();
@@ -242,7 +243,7 @@ public class EmployeeFormController implements Initializable {
     }
 
     private void loadNextEmployeeId() throws SQLException {
-        String nextEmployeeId = employeeModel.getNextEmployeeId();
+        String nextEmployeeId = employeeBO.getNextId();
         lblEmployeeId.setText(nextEmployeeId);
     }
 
@@ -264,10 +265,10 @@ public class EmployeeFormController implements Initializable {
 
     }
 
-    EmployeeModel employeeModel = new EmployeeModel();
+    EmployeeBO employeeBO = (EmployeeBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.EMPLOYEE);
 
     private void loadTableData() throws SQLException, ClassNotFoundException {
-        ArrayList<EmployeeDTO> employeeDTOS = employeeModel.getAllEmployees();
+        ArrayList<EmployeeDTO> employeeDTOS = employeeBO.getAll();
 
         ObservableList<EmployeeTM> employeeTMS = FXCollections.observableArrayList();
 

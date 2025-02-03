@@ -8,11 +8,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.gdse.loslibros.dao.custom.EmployeeDAO;
+import lk.ijse.gdse.loslibros.dao.custom.impl.EmployeeDAOImpl;
 import lk.ijse.gdse.loslibros.dto.EmployeeDTO;
 import lk.ijse.gdse.loslibros.dto.EmployeeLeaveDTO;
 import lk.ijse.gdse.loslibros.dto.tm.EmployeeLeaveTM;
 import lk.ijse.gdse.loslibros.model.EmployeeLeaveModel;
-import lk.ijse.gdse.loslibros.model.EmployeeModel;
 
 import java.net.URL;
 import java.sql.Date;
@@ -170,7 +171,7 @@ public class EmployeeLeaveFormController implements Initializable {
     @FXML
     void cmbEmployeeOnAction(ActionEvent event) throws SQLException {
         String selectedLeaveFormEmpId = cmbEmployeeId.getSelectionModel().getSelectedItem();
-        EmployeeDTO employeeDTO = employeeModel.findEmpById(selectedLeaveFormEmpId);
+        EmployeeDTO employeeDTO = employeeDAO.findEmpById(selectedLeaveFormEmpId);
 
         if (employeeDTO != null) {
             lblEmployeeName.setText(employeeDTO.getEmpName());
@@ -263,11 +264,11 @@ public class EmployeeLeaveFormController implements Initializable {
         lblLeaveId.setText(nextEmployeeLeaveId);
     }
 
-    private final EmployeeModel employeeModel = new EmployeeModel();
+    private final EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 
     private void loadEmpIdsforLeaveTable() throws SQLException {
 
-        ArrayList<String> employeeIds = employeeModel.getAllEmployIds();
+        ArrayList<String> employeeIds = employeeDAO.getAllEmployIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(employeeIds);
         cmbEmployeeId.setItems(observableList);

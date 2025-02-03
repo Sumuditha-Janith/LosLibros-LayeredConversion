@@ -13,7 +13,7 @@ public class CustomerBOImpl implements CustomerBO {
 
     CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.CUSTOMER);
 
-    public ArrayList<CustomerDTO> getAllCustomers() throws SQLException {
+    public ArrayList<CustomerDTO> getAll() throws SQLException {
 
         ArrayList<CustomerDTO> customers = new ArrayList<>();
         ArrayList<Customer> customerDTOs = customerDAO.getAll();
@@ -23,22 +23,21 @@ public class CustomerBOImpl implements CustomerBO {
         return customers;
     }
 
-    public String getNextCustomerId() throws SQLException {
+    public String getNextId() throws SQLException {
         return customerDAO.getNextId();
 
     }
-    public boolean saveCustomer(CustomerDTO customerDTO) throws SQLException {
+    public boolean save(CustomerDTO customerDTO) throws SQLException {
         return customerDAO.save(new Customer(customerDTO.getCustomerId(),customerDTO.getCustomerName(),customerDTO.getCustomerAddress(),customerDTO.getCustomerPhone()));
-
 
     }
 
-    public boolean updateCustomer(CustomerDTO customerDTO) throws SQLException {
+    public boolean update(CustomerDTO customerDTO) throws SQLException {
         return customerDAO.update(new Customer(customerDTO.getCustomerId(),customerDTO.getCustomerName(),customerDTO.getCustomerAddress(),customerDTO.getCustomerPhone()));
 
     }
 
-    public boolean deleteCustomer(String customerId) throws SQLException {
+    public boolean delete(String customerId) throws SQLException {
         return customerDAO.delete(customerId);
 
     }

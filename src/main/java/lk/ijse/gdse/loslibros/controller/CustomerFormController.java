@@ -10,8 +10,6 @@ import javafx.scene.input.MouseEvent;
 
 import lk.ijse.gdse.loslibros.bo.BOFactory;
 import lk.ijse.gdse.loslibros.bo.custom.CustomerBO;
-import lk.ijse.gdse.loslibros.dao.custom.CustomerDAO;
-import lk.ijse.gdse.loslibros.dao.custom.impl.CustomerDAOImpl;
 import lk.ijse.gdse.loslibros.db.DBConnection;
 import lk.ijse.gdse.loslibros.dto.CustomerDTO;
 import lk.ijse.gdse.loslibros.dto.tm.CustomerTM;
@@ -73,7 +71,7 @@ public class CustomerFormController {
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDeleted = customerBO.deleteCustomer(customerId);
+            boolean isDeleted = customerBO.delete(customerId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Customer deleted").show();
@@ -137,7 +135,7 @@ public class CustomerFormController {
                 customerNum
         );
 
-        boolean isSaved = customerBO.saveCustomer(customerDTO);
+        boolean isSaved = customerBO.save(customerDTO);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Customer saved...!").show();
@@ -164,7 +162,7 @@ public class CustomerFormController {
                 customerNum
         );
 
-        boolean isUpdated = customerBO.updateCustomer(customerDTO);
+        boolean isUpdated = customerBO.update(customerDTO);
         if (isUpdated) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Customer updated!").show();
@@ -220,12 +218,9 @@ public class CustomerFormController {
     }
 
     CustomerBO customerBO = (CustomerBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.CUSTOMER);
-    //CustomerDAO customerDAO = new CustomerDAOImpl();
-
-//    CustomerModel customerDAO = new CustomerModel();
 
     private void loadTableData() throws SQLException {
-        ArrayList<CustomerDTO> customerDTOS = customerBO.getAllCustomers();
+        ArrayList<CustomerDTO> customerDTOS = customerBO.getAll();
 
         ObservableList<CustomerTM> customerTMS = FXCollections.observableArrayList();
 
@@ -242,7 +237,7 @@ public class CustomerFormController {
     }
 
     private void loadNextCustomerId() throws SQLException {
-        String nextCustomerId = customerBO.getNextCustomerId();
+        String nextCustomerId = customerBO.getNextId();
         lblCustomerId.setText(nextCustomerId);
     }
 
