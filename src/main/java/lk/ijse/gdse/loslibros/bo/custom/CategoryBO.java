@@ -1,13 +1,12 @@
 package lk.ijse.gdse.loslibros.bo.custom;
 
-import lk.ijse.gdse.loslibros.dao.SQLUtil;
+import lk.ijse.gdse.loslibros.bo.SuperBO;
 import lk.ijse.gdse.loslibros.dto.CategoryDTO;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface CategoryBO {
+public interface CategoryBO extends SuperBO {
 
     public ArrayList<CategoryDTO> getAll() throws SQLException;
 

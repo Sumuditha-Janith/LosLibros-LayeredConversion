@@ -8,9 +8,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
+import lk.ijse.gdse.loslibros.bo.BOFactory;
+import lk.ijse.gdse.loslibros.bo.custom.CategoryBO;
 import lk.ijse.gdse.loslibros.dto.CategoryDTO;
 import lk.ijse.gdse.loslibros.dto.tm.CategoryTM;
-import lk.ijse.gdse.loslibros.model.CategoryModel;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class CategoryFormController {
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDeleted = categoryModel.deleteCategory(categoryId);
+            boolean isDeleted = categoryBO.delete(categoryId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Category deleted").show();
@@ -82,7 +83,7 @@ public class CategoryFormController {
                 categoryName
         );
 
-        boolean isSaved = categoryModel.saveCategory(categoryDTO);
+        boolean isSaved = categoryBO.save(categoryDTO);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Category saved...!").show();
@@ -106,7 +107,7 @@ public class CategoryFormController {
                 categoryName
         );
 
-        boolean isUpdated = categoryModel.updateCategory(categoryDTO);
+        boolean isUpdated = categoryBO.update(categoryDTO);
         if (isUpdated) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Category updated...!").show();
@@ -144,7 +145,7 @@ public class CategoryFormController {
     }
 
     private void loadNextCategoryId() throws SQLException {
-        String nextCategoryId = categoryModel.getNextCategoryId();
+        String nextCategoryId = categoryBO.getNextId();
         lblCategoryId.setText(nextCategoryId);
     }
 
@@ -159,13 +160,12 @@ public class CategoryFormController {
 
         txtCategoryName.setText("");
 
-
     }
 
-    CategoryModel categoryModel = new CategoryModel();
+    CategoryBO categoryBO = (CategoryBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.CATEGORY);
 
     private void loadTableData() throws SQLException, ClassNotFoundException {
-        ArrayList<CategoryDTO> categoryDTOS = categoryModel.getAllCategories();
+        ArrayList<CategoryDTO> categoryDTOS = categoryBO.getAll();
 
         ObservableList<CategoryTM> categoryTMS = FXCollections.observableArrayList();
 

@@ -10,7 +10,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 import lk.ijse.gdse.loslibros.dao.custom.AuthorDAO;
+import lk.ijse.gdse.loslibros.dao.custom.CategoryDAO;
 import lk.ijse.gdse.loslibros.dao.custom.impl.AuthorDAOImpl;
+import lk.ijse.gdse.loslibros.dao.custom.impl.CategoryDAOImpl;
 import lk.ijse.gdse.loslibros.dto.*;
 import lk.ijse.gdse.loslibros.dto.tm.BookTM;
 import lk.ijse.gdse.loslibros.model.*;
@@ -185,7 +187,6 @@ public class BookFormController implements Initializable {
 
         String selectedAuthorId = cmbAuthorId.getSelectionModel().getSelectedItem();
         AuthorDTO authorDTO = authorDAO.findAuthById(selectedAuthorId);
-//        AuthorDTO authorDTO = authorModel.findAuthById(selectedAuthorId);
 
         if (authorDTO != null) {
 
@@ -197,7 +198,7 @@ public class BookFormController implements Initializable {
     void cmbCategoryOnAction(ActionEvent event) throws SQLException {
 
         String selectedCategoryId = (String) cmbCategoryId.getSelectionModel().getSelectedItem();
-        CategoryDTO categoryDTO = categoryModel.findCategoryById(selectedCategoryId);
+        CategoryDTO categoryDTO = categoryDAO.findCategoryById(selectedCategoryId);
 
         if (categoryDTO != null) {
 
@@ -252,7 +253,8 @@ public class BookFormController implements Initializable {
 
     private final AuthorDAO authorDAO = new AuthorDAOImpl();
 //    private final AuthorModel authorModel = new AuthorModel();
-    private final CategoryModel categoryModel = new CategoryModel();
+    private final CategoryDAO categoryDAO = new CategoryDAOImpl();
+//    private final CategoryModel categoryModel = new CategoryModel();
     private final PublisherModel publisherModel = new PublisherModel();
     private final SupplierModel supplierModel = new SupplierModel();
 
@@ -338,7 +340,6 @@ public class BookFormController implements Initializable {
 
 
     private void loadAuthorIds() throws SQLException {
-//        ArrayList<String> authorIds = authorModel.getAllAuthorIds();
         ArrayList <String> authorIds = authorDAO.getAllAuthorIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(authorIds);
@@ -346,7 +347,7 @@ public class BookFormController implements Initializable {
     }
 
     private void loadCategoryIds() throws SQLException {
-        ArrayList<String> categoryIds = categoryModel.getAllCategoryIds();
+        ArrayList<String> categoryIds = categoryDAO.getAllCategoryIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(categoryIds);
         cmbCategoryId.setItems(observableList);

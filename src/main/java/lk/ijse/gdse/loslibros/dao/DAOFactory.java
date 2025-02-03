@@ -27,7 +27,7 @@ public class DAOFactory {
                     case AUTHOR:
                         return new AuthorDAOImpl();
                         case CATEGORY:
-                            return (SuperDAO) new CategoryDAOImpl();
+                            return new CategoryDAOImpl();
             default:
                 return null;
         }

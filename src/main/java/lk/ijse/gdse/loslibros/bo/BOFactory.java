@@ -1,6 +1,7 @@
 package lk.ijse.gdse.loslibros.bo;
 
 import lk.ijse.gdse.loslibros.bo.custom.impl.AuthorBOImpl;
+import lk.ijse.gdse.loslibros.bo.custom.impl.CategoryBOImpl;
 import lk.ijse.gdse.loslibros.bo.custom.impl.CustomerBOImpl;
 
 public class BOFactory {
@@ -21,6 +22,7 @@ public class BOFactory {
                 case AUTHOR:
                     return new AuthorBOImpl();
                     case CATEGORY:
+                        return new CategoryBOImpl();
                 default:
                     return null;
         }
