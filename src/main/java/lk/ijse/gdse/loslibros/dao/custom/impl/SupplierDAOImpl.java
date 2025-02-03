@@ -1,32 +1,32 @@
-package lk.ijse.gdse.loslibros.model;
+package lk.ijse.gdse.loslibros.dao.custom.impl;
 
 import lk.ijse.gdse.loslibros.dao.SQLUtil;
+import lk.ijse.gdse.loslibros.dao.custom.SupplierDAO;
 import lk.ijse.gdse.loslibros.dto.SupplierDTO;
+import lk.ijse.gdse.loslibros.entity.Supplier;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class SupplierModel {
+public class SupplierDAOImpl implements SupplierDAO {
 
-    public ArrayList<SupplierDTO> getAllSuppliers() throws SQLException, ClassNotFoundException {
+    public ArrayList<Supplier> getAll() throws SQLException {
         ResultSet rst = SQLUtil.execute("select * from supplier");
 
-        ArrayList<SupplierDTO> supplierDTOS = new ArrayList<>();
+        ArrayList<Supplier> supplierList = new ArrayList<>();
 
         while (rst.next()) {
-            SupplierDTO supplierDTO = new SupplierDTO(
+            Supplier supplier = new Supplier(
                     rst.getString(1),
                     rst.getString(2)
-
             );
-            supplierDTOS.add(supplierDTO);
+            supplierList.add(supplier);
         }
-        return supplierDTOS;
-
+        return supplierList;
     }
 
-    public String getNextSupplierId() throws SQLException {
+    public String getNextId() throws SQLException {
         ResultSet rst = SQLUtil.execute("select sup_id from supplier order by sup_id desc limit 1");
 
         if (rst.next()) {
@@ -39,24 +39,23 @@ public class SupplierModel {
         return "S001";
     }
 
-    public boolean saveSupplier(SupplierDTO supplierDTO) throws SQLException {
+    public boolean save(Supplier supplier) throws SQLException {
         return SQLUtil.execute(
-                "insert into supplier values (?,?)",
-                supplierDTO.getSupplierId(),
-                supplierDTO.getSupplierName()
+                "insert into supplier VALUES (?, ?)",
+                supplier.getSupplierId(),
+                supplier.getSupplierName()
         );
     }
 
-    public boolean updateSupplier(SupplierDTO supplierDTO) throws SQLException {
+    public boolean update(Supplier supplier) throws SQLException {
         return SQLUtil.execute(
                 "update supplier set sup_name=? where sup_id=?",
-                supplierDTO.getSupplierName(),
-                supplierDTO.getSupplierId()
+                supplier.getSupplierName(),
+                supplier.getSupplierId()
         );
-
     }
 
-    public boolean deleteSupplier(String supplierId) throws SQLException {
+    public boolean delete(String supplierId) throws SQLException {
         return SQLUtil.execute("delete from supplier where sup_id=?", supplierId);
     }
 
@@ -79,10 +78,8 @@ public class SupplierModel {
             return new SupplierDTO(
                     rst.getString(1),
                     rst.getString(2)
-
             );
         }
         return null;
     }
-
 }

@@ -12,9 +12,11 @@ import javafx.scene.input.MouseEvent;
 import lk.ijse.gdse.loslibros.dao.custom.AuthorDAO;
 import lk.ijse.gdse.loslibros.dao.custom.CategoryDAO;
 import lk.ijse.gdse.loslibros.dao.custom.PublisherDAO;
+import lk.ijse.gdse.loslibros.dao.custom.SupplierDAO;
 import lk.ijse.gdse.loslibros.dao.custom.impl.AuthorDAOImpl;
 import lk.ijse.gdse.loslibros.dao.custom.impl.CategoryDAOImpl;
 import lk.ijse.gdse.loslibros.dao.custom.impl.PublisherDAOImpl;
+import lk.ijse.gdse.loslibros.dao.custom.impl.SupplierDAOImpl;
 import lk.ijse.gdse.loslibros.dto.*;
 import lk.ijse.gdse.loslibros.dto.tm.BookTM;
 import lk.ijse.gdse.loslibros.model.*;
@@ -224,7 +226,7 @@ public class BookFormController implements Initializable {
     void cmbSupplierOnAction(ActionEvent event) throws SQLException {
 
         String selectedSupplierId = (String) cmbSupplierId.getSelectionModel().getSelectedItem();
-        SupplierDTO supplierDTO = supplierModel.findSupplierById(selectedSupplierId);
+        SupplierDTO supplierDTO = supplierDAO.findSupplierById(selectedSupplierId);
 
         if (supplierDTO != null) {
 
@@ -259,7 +261,7 @@ public class BookFormController implements Initializable {
 //    private final CategoryModel categoryModel = new CategoryModel();
     private final PublisherDAO publisherDAO = new PublisherDAOImpl();
 //    private final PublisherModel publisherModel = new PublisherModel();
-    private final SupplierModel supplierModel = new SupplierModel();
+    private final SupplierDAO supplierDAO = new SupplierDAOImpl();
 
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -364,7 +366,7 @@ public class BookFormController implements Initializable {
     }
 
     private void loadSupplierIds() throws SQLException {
-        ArrayList<String> supplierIds = supplierModel.getAllSupplierIds();
+        ArrayList<String> supplierIds = supplierDAO.getAllSupplierIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(supplierIds);
         cmbSupplierId.setItems(observableList);

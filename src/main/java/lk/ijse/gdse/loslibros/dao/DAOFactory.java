@@ -15,7 +15,7 @@ public class DAOFactory {
 
     public enum DAOType {
         CUSTOMER,
-        SQL, CATEGORY, PUBLISHER, AUTHOR
+        SQL, CATEGORY, PUBLISHER, AUTHOR, SUPPLIER
     }
 
     public SuperDAO getDAO(DAOType type) {
@@ -30,6 +30,8 @@ public class DAOFactory {
                             return new CategoryDAOImpl();
                             case PUBLISHER:
                                 return new PublisherDAOImpl();
+                                case SUPPLIER:
+                                    return new SupplierDAOImpl();
             default:
                 return null;
         }

@@ -1,9 +1,7 @@
 package lk.ijse.gdse.loslibros.bo;
 
-import lk.ijse.gdse.loslibros.bo.custom.impl.AuthorBOImpl;
-import lk.ijse.gdse.loslibros.bo.custom.impl.CategoryBOImpl;
-import lk.ijse.gdse.loslibros.bo.custom.impl.CustomerBOImpl;
-import lk.ijse.gdse.loslibros.bo.custom.impl.PublisherBOImpl;
+import lk.ijse.gdse.loslibros.bo.custom.impl.*;
+import lk.ijse.gdse.loslibros.dao.custom.impl.SupplierDAOImpl;
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -13,7 +11,7 @@ public class BOFactory {
     }
 
     public enum BOType {
-        CUSTOMER,AUTHOR,CATEGORY, PUBLISHER
+        CUSTOMER,AUTHOR,CATEGORY,PUBLISHER,SUPPLIER
     }
 
     public SuperBO getSuperBO(BOType type) {
@@ -26,6 +24,8 @@ public class BOFactory {
                         return new CategoryBOImpl();
                         case PUBLISHER:
                             return new PublisherBOImpl();
+                            case SUPPLIER:
+                                return new SupplierBOImpl();
                 default:
                     return null;
         }

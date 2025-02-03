@@ -8,9 +8,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
+import lk.ijse.gdse.loslibros.bo.BOFactory;
+import lk.ijse.gdse.loslibros.bo.custom.SupplierBO;
 import lk.ijse.gdse.loslibros.dto.SupplierDTO;
 import lk.ijse.gdse.loslibros.dto.tm.SupplierTM;
-import lk.ijse.gdse.loslibros.model.SupplierModel;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class SupplierFormController {
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDeleted = supplierModel.deleteSupplier(supplierId);
+            boolean isDeleted = supplierBO.delete(supplierId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Supplier deleted").show();
@@ -83,7 +84,7 @@ public class SupplierFormController {
                 supplierName
         );
 
-        boolean isSaved = supplierModel.saveSupplier(supplierDTO);
+        boolean isSaved = supplierBO.save(supplierDTO);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Supplier saved...!").show();
@@ -108,7 +109,7 @@ public class SupplierFormController {
                 supplierName
         );
 
-        boolean isUpdate = supplierModel.updateSupplier(supplierDTO);
+        boolean isUpdate = supplierBO.update(supplierDTO);
         if (isUpdate) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Supplier updated...!").show();
@@ -144,7 +145,7 @@ public class SupplierFormController {
     }
 
     private void loadNextSupplierId() throws SQLException {
-        String nextSupplierId = supplierModel.getNextSupplierId();
+        String nextSupplierId = supplierBO.getNextId();
         lblSupplierId.setText(nextSupplierId);
     }
 
@@ -162,10 +163,11 @@ public class SupplierFormController {
 
     }
 
-    SupplierModel supplierModel = new SupplierModel();
+    SupplierBO supplierBO = (SupplierBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.SUPPLIER);
 
-    private void loadTableData() throws SQLException, ClassNotFoundException {
-        ArrayList<SupplierDTO> supplierDTOS = supplierModel.getAllSuppliers();
+
+    private void loadTableData() throws SQLException {
+        ArrayList<SupplierDTO> supplierDTOS = supplierBO.getAll();
 
         ObservableList<SupplierTM> supplierTMS = FXCollections.observableArrayList();
 
