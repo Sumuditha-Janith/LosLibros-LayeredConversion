@@ -1,5 +1,6 @@
 package lk.ijse.gdse.loslibros.dao;
 
+import lk.ijse.gdse.loslibros.dao.custom.EmployeePayrollDAO;
 import lk.ijse.gdse.loslibros.dao.custom.impl.*;
 
 public class DAOFactory {
@@ -15,7 +16,7 @@ public class DAOFactory {
 
     public enum DAOType {
         CUSTOMER,
-        SQL, CATEGORY, PUBLISHER, AUTHOR, SUPPLIER, EMPLOYEE
+        SQL, CATEGORY, PUBLISHER, AUTHOR, SUPPLIER, EMPLOYEE, EMPLOYEE_PAYROLL,
     }
 
     public SuperDAO getDAO(DAOType type) {
@@ -34,6 +35,7 @@ public class DAOFactory {
                                     return new SupplierDAOImpl();
                                     case EMPLOYEE:
                                         return new EmployeeDAOImpl();
+                                        case EMPLOYEE_PAYROLL:
             default:
                 return null;
         }
