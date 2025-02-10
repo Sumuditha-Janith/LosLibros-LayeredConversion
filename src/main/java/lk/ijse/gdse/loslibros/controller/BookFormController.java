@@ -18,7 +18,7 @@ import lk.ijse.gdse.loslibros.dao.custom.impl.CategoryDAOImpl;
 import lk.ijse.gdse.loslibros.dao.custom.impl.PublisherDAOImpl;
 import lk.ijse.gdse.loslibros.dao.custom.impl.SupplierDAOImpl;
 import lk.ijse.gdse.loslibros.dto.*;
-import lk.ijse.gdse.loslibros.dto.tm.BookTM;
+import lk.ijse.gdse.loslibros.view.tdm.BookTM;
 import lk.ijse.gdse.loslibros.model.*;
 
 import java.net.URL;

@@ -12,7 +12,7 @@ import lk.ijse.gdse.loslibros.bo.BOFactory;
 import lk.ijse.gdse.loslibros.bo.custom.CustomerBO;
 import lk.ijse.gdse.loslibros.db.DBConnection;
 import lk.ijse.gdse.loslibros.dto.CustomerDTO;
-import lk.ijse.gdse.loslibros.dto.tm.CustomerTM;
+import lk.ijse.gdse.loslibros.view.tdm.CustomerTM;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
 

@@ -12,7 +12,7 @@ import javafx.scene.input.MouseEvent;
 import lk.ijse.gdse.loslibros.bo.BOFactory;
 import lk.ijse.gdse.loslibros.bo.custom.EmployeeBO;
 import lk.ijse.gdse.loslibros.dto.EmployeeDTO;
-import lk.ijse.gdse.loslibros.dto.tm.EmployeeTM;
+import lk.ijse.gdse.loslibros.view.tdm.EmployeeTM;
 
 import java.net.URL;
 import java.sql.SQLException;

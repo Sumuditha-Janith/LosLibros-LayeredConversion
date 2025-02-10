@@ -14,7 +14,7 @@ import lk.ijse.gdse.loslibros.dto.BookDTO;
 import lk.ijse.gdse.loslibros.dto.CustomerDTO;
 import lk.ijse.gdse.loslibros.dto.OrderDTO;
 import lk.ijse.gdse.loslibros.dto.OrderDetailsDTO;
-import lk.ijse.gdse.loslibros.dto.tm.CartTM;
+import lk.ijse.gdse.loslibros.view.tdm.CartTM;
 import lk.ijse.gdse.loslibros.model.BookModel;
 import lk.ijse.gdse.loslibros.model.OrderModel;
 

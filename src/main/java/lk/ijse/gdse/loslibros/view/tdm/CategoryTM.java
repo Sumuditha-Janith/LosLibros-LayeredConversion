@@ -1,4 +1,4 @@
-package lk.ijse.gdse.loslibros.tm;
+package lk.ijse.gdse.loslibros.view.tdm;
 
 import lombok.*;
 @Getter

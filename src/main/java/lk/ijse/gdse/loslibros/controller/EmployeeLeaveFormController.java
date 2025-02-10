@@ -12,7 +12,7 @@ import lk.ijse.gdse.loslibros.dao.custom.EmployeeDAO;
 import lk.ijse.gdse.loslibros.dao.custom.impl.EmployeeDAOImpl;
 import lk.ijse.gdse.loslibros.dto.EmployeeDTO;
 import lk.ijse.gdse.loslibros.dto.EmployeeLeaveDTO;
-import lk.ijse.gdse.loslibros.dto.tm.EmployeeLeaveTM;
+import lk.ijse.gdse.loslibros.view.tdm.EmployeeLeaveTM;
 import lk.ijse.gdse.loslibros.model.EmployeeLeaveModel;
 
 import java.net.URL;

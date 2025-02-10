@@ -11,7 +11,7 @@ import javafx.scene.input.MouseEvent;
 import lk.ijse.gdse.loslibros.bo.BOFactory;
 import lk.ijse.gdse.loslibros.bo.custom.CategoryBO;
 import lk.ijse.gdse.loslibros.dto.CategoryDTO;
-import lk.ijse.gdse.loslibros.dto.tm.CategoryTM;
+import lk.ijse.gdse.loslibros.view.tdm.CategoryTM;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

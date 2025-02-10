@@ -7,7 +7,7 @@ module lk.ijse.gdse.loslibros {
 
 
     opens lk.ijse.gdse.loslibros.controller to javafx.fxml;
-    opens lk.ijse.gdse.loslibros.dto.tm to  javafx.base;
+    opens lk.ijse.gdse.loslibros.view.tdm to  javafx.base;
 
     exports lk.ijse.gdse.loslibros;
 }

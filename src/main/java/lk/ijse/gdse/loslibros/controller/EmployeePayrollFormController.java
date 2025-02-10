@@ -15,7 +15,7 @@ import lk.ijse.gdse.loslibros.dao.custom.EmployeeDAO;
 import lk.ijse.gdse.loslibros.dao.custom.impl.EmployeeDAOImpl;
 import lk.ijse.gdse.loslibros.dto.EmployeeDTO;
 import lk.ijse.gdse.loslibros.dto.EmployeePayrollDTO;
-import lk.ijse.gdse.loslibros.dto.tm.EmployeePayrollTM;
+import lk.ijse.gdse.loslibros.view.tdm.EmployeePayrollTM;
 
 import java.net.URL;
 import java.sql.Date;
