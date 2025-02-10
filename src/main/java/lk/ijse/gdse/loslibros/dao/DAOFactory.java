@@ -36,6 +36,7 @@ public class DAOFactory {
                                     case EMPLOYEE:
                                         return new EmployeeDAOImpl();
                                         case EMPLOYEE_PAYROLL:
+                                            return new EmployeePayrollDAOImpl();
             default:
                 return null;
         }

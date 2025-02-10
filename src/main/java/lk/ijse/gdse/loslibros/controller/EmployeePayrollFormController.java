@@ -9,12 +9,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
+import lk.ijse.gdse.loslibros.bo.BOFactory;
+import lk.ijse.gdse.loslibros.bo.custom.EmployeePayrollBO;
 import lk.ijse.gdse.loslibros.dao.custom.EmployeeDAO;
 import lk.ijse.gdse.loslibros.dao.custom.impl.EmployeeDAOImpl;
 import lk.ijse.gdse.loslibros.dto.EmployeeDTO;
 import lk.ijse.gdse.loslibros.dto.EmployeePayrollDTO;
 import lk.ijse.gdse.loslibros.dto.tm.EmployeePayrollTM;
-import lk.ijse.gdse.loslibros.model.EmployeePayrollModel;
 
 import java.net.URL;
 import java.sql.Date;
@@ -84,7 +85,7 @@ public class EmployeePayrollFormController implements Initializable {
         String payrollId = lblPayId.getText();
 
         if (payrollId != null && !payrollId.isEmpty()) {
-            boolean isDeleted = employeePayrollModel.deleteEmployeePayroll(payrollId);
+            boolean isDeleted = employeePayrollBO.delete(payrollId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Payroll record deleted successfully!").show();
@@ -125,7 +126,7 @@ public class EmployeePayrollFormController implements Initializable {
                 null
         );
 
-        boolean isSaved = employeePayrollModel.saveEmployeePayroll(employeePayrollDTO);
+        boolean isSaved = employeePayrollBO.save(employeePayrollDTO);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Details saved...!").show();
@@ -136,35 +137,35 @@ public class EmployeePayrollFormController implements Initializable {
 
     @FXML
     void btnEmpPayUpdateOnAction(ActionEvent event) {
-
-        if (!validateFields()) {
-            return;
-        }
-
-        String payrollId = lblPayId.getText();
-
-        if (payrollId == null || payrollId.isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "Please select a valid Payroll ID!").show();
-            return;
-        }
-
-        try {
-            String deductions = txtDeductions.getText();
-            String bonuses = txtBonus.getText();
-
-            boolean isUpdated = employeePayrollModel.updateEmployeePayroll(payrollId, deductions, bonuses);
-
-            if (isUpdated) {
-                refreshPage();
-                new Alert(Alert.AlertType.INFORMATION, "Updated successfully!").show();
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Failed to update!").show();
-            }
-        } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid input! Please enter valid numbers for Deductions and Bonuses.").show();
-        } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "Database error" + e.getMessage()).show();
-        }
+//
+//        if (!validateFields()) {
+//            return;
+//        }
+//
+//        String payrollId = lblPayId.getText();
+//
+//        if (payrollId == null || payrollId.isEmpty()) {
+//            new Alert(Alert.AlertType.WARNING, "Please select a valid Payroll ID!").show();
+//            return;
+//        }
+//
+//        try {
+//            String deductions = txtDeductions.getText();
+//            String bonuses = txtBonus.getText();
+//
+//            boolean isUpdated = employeePayrollBO.update(deductions, bonuses);
+//
+//            if (isUpdated) {
+//                refreshPage();
+//                new Alert(Alert.AlertType.INFORMATION, "Updated successfully!").show();
+//            } else {
+//                new Alert(Alert.AlertType.ERROR, "Failed to update!").show();
+//            }
+//        } catch (NumberFormatException e) {
+//            new Alert(Alert.AlertType.ERROR, "Invalid input! Please enter valid numbers for Deductions and Bonuses.").show();
+//        } catch (Exception e) {
+//            new Alert(Alert.AlertType.ERROR, "Database error" + e.getMessage()).show();
+//        }
     }
 
     @FXML
@@ -244,10 +245,11 @@ public class EmployeePayrollFormController implements Initializable {
 
     }
 
-    EmployeePayrollModel employeePayrollModel = new EmployeePayrollModel();
+    EmployeePayrollBO employeePayrollBO = (EmployeePayrollBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.EMPLOYEE_PAYROLL);
+//    EmployeePayrollModel employeePayrollModel = new EmployeePayrollModel();
 
     private void loadEmpPayTableData() throws SQLException {
-        ArrayList<EmployeePayrollDTO> employeePayrollDTOS = employeePayrollModel.getAllEmployeePayrolls();
+        ArrayList<EmployeePayrollDTO> employeePayrollDTOS = employeePayrollBO.getAll();
 
         ObservableList<EmployeePayrollTM> employeePayrollTMS = FXCollections.observableArrayList();
 
@@ -269,7 +271,7 @@ public class EmployeePayrollFormController implements Initializable {
     }
 
     public void loadNextEmpPayId() throws SQLException {
-        String nextEmpPayId = employeePayrollModel.getNextEmployeePayrollId();
+        String nextEmpPayId = employeePayrollBO.getNextId();
 
         lblPayId.setText(nextEmpPayId);
 
@@ -328,6 +330,5 @@ public class EmployeePayrollFormController implements Initializable {
 
         return true;
     }
-
 
 }

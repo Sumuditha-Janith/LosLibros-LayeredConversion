@@ -1,20 +1,19 @@
 package lk.ijse.gdse.loslibros.bo.custom.impl;
 
+import lk.ijse.gdse.loslibros.bo.custom.EmployeePayrollBO;
 import lk.ijse.gdse.loslibros.dao.DAOFactory;
 import lk.ijse.gdse.loslibros.dao.custom.EmployeePayrollDAO;
-import lk.ijse.gdse.loslibros.dto.EmployeeDTO;
 import lk.ijse.gdse.loslibros.dto.EmployeePayrollDTO;
-import lk.ijse.gdse.loslibros.entity.Employee;
 import lk.ijse.gdse.loslibros.entity.EmployeePayroll;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class EmployeePayrollBOImpl {
+public class EmployeePayrollBOImpl implements EmployeePayrollBO {
 
     EmployeePayrollDAO employeePayrollDAO = (EmployeePayrollDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.EMPLOYEE_PAYROLL);
 
-    ArrayList<EmployeePayrollDTO> getAll() throws SQLException {
+    public ArrayList<EmployeePayrollDTO> getAll() throws SQLException {
 
         ArrayList<EmployeePayrollDTO> employeePayrolls = new ArrayList<>();
         ArrayList<EmployeePayrollDTO> employeePayrollDTOs = employeePayrollDAO.getAll();
@@ -46,5 +45,19 @@ public class EmployeePayrollBOImpl {
                 employeePayrollDTO.getNetSalary()));
     }
 
-    
+    public boolean update(EmployeePayrollDTO employeePayrollDTO) throws SQLException {
+        return employeePayrollDAO.update(new EmployeePayrollDTO(
+                employeePayrollDTO.getPayrollId(),
+                employeePayrollDTO.getPayrollEmpId(),
+                employeePayrollDTO.getPayrollDate(),
+                employeePayrollDTO.getBaseSalary(),
+                employeePayrollDTO.getDeductions(),
+                employeePayrollDTO.getBonuses(),
+                employeePayrollDTO.getNetSalary()));
+        }
+
+    public boolean delete(String payrollId) throws SQLException {
+        return employeePayrollDAO.delete(payrollId);
+    }
+
 }
