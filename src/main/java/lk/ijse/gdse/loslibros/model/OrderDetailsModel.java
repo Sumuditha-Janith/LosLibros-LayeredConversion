@@ -11,17 +11,17 @@ public class OrderDetailsModel {
     public final BookModel bookModel = new BookModel();
 
     public boolean saveOrderDetailsList(ArrayList<OrderDetailsDTO> orderDetailsDTOS) throws SQLException {
-        for (OrderDetailsDTO orderDetailsDTO : orderDetailsDTOS) {
-            boolean isOrderDetailsSaved = saveOrderDetail(orderDetailsDTO);
-            if (!isOrderDetailsSaved) {
-                return false;
-            }
-
-            boolean isBookUpdated = bookModel.reduceQty(orderDetailsDTO);
-            if (!isBookUpdated) {
-                return false;
-            }
-        }
+//        for (OrderDetailsDTO orderDetailsDTO : orderDetailsDTOS) {
+//            boolean isOrderDetailsSaved = saveOrderDetail(orderDetailsDTO);
+//            if (!isOrderDetailsSaved) {
+//                return false;
+//            }
+//
+//            boolean isBookUpdated = bookModel.reduceQty(orderDetailsDTO);
+//            if (!isBookUpdated) {
+//                return false;
+//            }
+//        }
         return true;
     }
 

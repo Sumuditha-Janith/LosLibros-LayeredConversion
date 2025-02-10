@@ -9,6 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
+import lk.ijse.gdse.loslibros.bo.BOFactory;
+import lk.ijse.gdse.loslibros.bo.custom.BookBO;
 import lk.ijse.gdse.loslibros.dao.custom.AuthorDAO;
 import lk.ijse.gdse.loslibros.dao.custom.CategoryDAO;
 import lk.ijse.gdse.loslibros.dao.custom.PublisherDAO;
@@ -110,7 +112,7 @@ public class BookFormController implements Initializable {
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDeleted = bookModel.deleteBook(bookId);
+            boolean isDeleted = bookBO.delete(bookId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Book deleted").show();
@@ -152,7 +154,7 @@ public class BookFormController implements Initializable {
                 bookQuantity
         );
 
-        boolean isSaved = bookModel.saveBook(bookDTO);
+        boolean isSaved = bookBO.save(bookDTO);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Book saved...!").show();
@@ -163,27 +165,7 @@ public class BookFormController implements Initializable {
 
     @FXML
     void btnBookUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
-        if (!validateFields()) {
-            return;
-        }
 
-        String bookId = lblBookId.getText();
-        String bookName = txtBookName.getText();
-        String authorId = cmbAuthorId.getValue();
-        String categoryId = cmbCategoryId.getValue();
-        String publisherId = cmbPublisherId.getValue();
-        String supplierId = cmbSupplierId.getValue();
-        String bookPrice = txtBookPrice.getText();
-        String bookQuantity = txtBookQuantity.getText();
-
-        boolean isUpdated = bookModel.updateBook(bookId, bookName, authorId, categoryId, publisherId, supplierId, bookPrice, bookQuantity);
-
-        if (isUpdated) {
-            refreshPage();
-            new Alert(Alert.AlertType.INFORMATION, "Book updated successfully!").show();
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Failed to update the book!").show();
-        }
     }
 
     @FXML
@@ -255,6 +237,9 @@ public class BookFormController implements Initializable {
         }
     }
 
+    //    AuthorBO authorBO = (AuthorBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.AUTHOR);
+    BookBO bookBO = (BookBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.BOOK);
+
     private final AuthorDAO authorDAO = new AuthorDAOImpl();
 //    private final AuthorModel authorModel = new AuthorModel();
     private final CategoryDAO categoryDAO = new CategoryDAOImpl();
@@ -313,7 +298,7 @@ public class BookFormController implements Initializable {
     }
 
     private void loadNextBookId() throws SQLException {
-        String nextBookId = bookModel.getNextBookId();
+        String nextBookId = bookBO.getNextId();
         lblBookId.setText(nextBookId);
     }
 
@@ -321,7 +306,7 @@ public class BookFormController implements Initializable {
     BookModel bookModel = new BookModel();
 
     private void loadTableData() throws SQLException, ClassNotFoundException {
-        ArrayList<BookDTO> bookDTOS = bookModel.getAllBooks();
+        ArrayList<BookDTO> bookDTOS = bookBO.getAll();
 
         ObservableList<BookTM> bookTMS = FXCollections.observableArrayList();
 

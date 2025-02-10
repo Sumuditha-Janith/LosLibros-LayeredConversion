@@ -8,7 +8,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import lk.ijse.gdse.loslibros.bo.custom.BookBO;
+import lk.ijse.gdse.loslibros.bo.custom.impl.BookBOImpl;
+import lk.ijse.gdse.loslibros.dao.custom.BookDAO;
 import lk.ijse.gdse.loslibros.dao.custom.CustomerDAO;
+import lk.ijse.gdse.loslibros.dao.custom.impl.BookDAOImpl;
 import lk.ijse.gdse.loslibros.dao.custom.impl.CustomerDAOImpl;
 import lk.ijse.gdse.loslibros.dto.BookDTO;
 import lk.ijse.gdse.loslibros.dto.CustomerDTO;
@@ -201,15 +205,15 @@ public class OrderFormController implements Initializable {
     @FXML
     void cmbBookOnAction(ActionEvent event) throws SQLException {
 
-        String selectedBookId = cmbBookId.getSelectionModel().getSelectedItem();
-        BookDTO bookDTO = bookModel.findBookById(selectedBookId);
-
-        if (bookDTO != null) {
-
-            lblBookName.setText(bookDTO.getBookName());
-            lblBookQty.setText(String.valueOf(bookDTO.getBookQuantity()));
-            lblBookPrice.setText(String.valueOf(bookDTO.getBookPrice()));
-        }
+//        String selectedBookId = cmbBookId.getSelectionModel().getSelectedItem();
+//        BookDTO bookDTO = bookModel.findBookById(selectedBookId);
+//
+//        if (bookDTO != null) {
+//
+//            lblBookName.setText(bookDTO.getBookName());
+//            lblBookQty.setText(String.valueOf(bookDTO.getBookQuantity()));
+//            lblBookPrice.setText(String.valueOf(bookDTO.getBookPrice()));
+//        }
 
     }
 
@@ -229,6 +233,8 @@ public class OrderFormController implements Initializable {
     private final OrderModel orderModel = new OrderModel();
     private final CustomerDAO customerModel = new CustomerDAOImpl();
     private final BookModel bookModel = new BookModel();
+    private final BookBO bookBO = new BookBOImpl();
+    private final BookDAO bookDAO = new BookDAOImpl();
 
     private final ObservableList<CartTM> cartTMS = FXCollections.observableArrayList();
 
@@ -261,8 +267,8 @@ public class OrderFormController implements Initializable {
 
         lblOrderDate.setText(LocalDate.now().toString());
 
-        loadCustomerIds();
-        loadBookIds();
+//        loadCustomerIds();
+//        loadBookIds();
 
 
         cmbCustomerId.getSelectionModel().clearSelection();
@@ -281,19 +287,19 @@ public class OrderFormController implements Initializable {
         tableCart.refresh();
     }
 
-    private void loadBookIds() throws SQLException {
-        ArrayList<String> bookIds = bookModel.getAllBookIds();
-        ObservableList<String> observableList = FXCollections.observableArrayList();
-        observableList.addAll(bookIds);
-        cmbBookId.setItems(observableList);
-    }
-
-    private void loadCustomerIds() throws SQLException {
-        ArrayList<String> customerIds = customerModel.getAllCustomerIds();
-        ObservableList<String> observableList = FXCollections.observableArrayList();
-        observableList.addAll(customerIds);
-        cmbCustomerId.setItems(observableList);
-    }
+//    private void loadBookIds() throws SQLException {
+//        ArrayList<String> bookIds = bookModel.getAllBookIds();
+//        ObservableList<String> observableList = FXCollections.observableArrayList();
+//        observableList.addAll(bookIds);
+//        cmbBookId.setItems(observableList);
+//    }
+//
+//    private void loadCustomerIds() throws SQLException {
+//        ArrayList<String> customerIds = customerModel.getAllCustomerIds();
+//        ObservableList<String> observableList = FXCollections.observableArrayList();
+//        observableList.addAll(customerIds);
+//        cmbCustomerId.setItems(observableList);
+//    }
 
 
 }
