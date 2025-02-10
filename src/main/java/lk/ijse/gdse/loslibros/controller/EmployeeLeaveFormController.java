@@ -8,12 +8,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.gdse.loslibros.bo.BOFactory;
+import lk.ijse.gdse.loslibros.bo.custom.EmployeeLeaveBO;
 import lk.ijse.gdse.loslibros.dao.custom.EmployeeDAO;
+import lk.ijse.gdse.loslibros.dao.custom.EmployeeLeaveDAO;
 import lk.ijse.gdse.loslibros.dao.custom.impl.EmployeeDAOImpl;
+import lk.ijse.gdse.loslibros.dao.custom.impl.EmployeeLeaveDAOImpl;
 import lk.ijse.gdse.loslibros.dto.EmployeeDTO;
 import lk.ijse.gdse.loslibros.dto.EmployeeLeaveDTO;
 import lk.ijse.gdse.loslibros.view.tdm.EmployeeLeaveTM;
-import lk.ijse.gdse.loslibros.model.EmployeeLeaveModel;
 
 import java.net.URL;
 import java.sql.Date;
@@ -84,7 +87,7 @@ public class EmployeeLeaveFormController implements Initializable {
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDeleted = employeeLeaveModel.deleteEmployeeLeave(employeeLeaveId);
+            boolean isDeleted = employeeLeaveBO.delete(employeeLeaveId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Employee leave deleted").show();
@@ -121,7 +124,7 @@ public class EmployeeLeaveFormController implements Initializable {
                 leaveEndDate,
                 leaveStatus
         );
-        boolean isSaved = employeeLeaveModel.saveEmployeeLeave(employeeLeaveDTO);
+        boolean isSaved = employeeLeaveBO.save(employeeLeaveDTO);
         if (isSaved) {
             refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Employee leave saved!").show();
@@ -157,7 +160,7 @@ public class EmployeeLeaveFormController implements Initializable {
                 leaveStatus
         );
 
-        boolean isUpdated = employeeLeaveModel.updateEmployeeLeave(employeeLeaveDTO);
+        boolean isUpdated = employeeLeaveBO.update(employeeLeaveDTO);
 
         if (isUpdated) {
             refreshPage();
@@ -238,10 +241,11 @@ public class EmployeeLeaveFormController implements Initializable {
 
     }
 
-    EmployeeLeaveModel employeeLeaveModel = new EmployeeLeaveModel();
+
+    EmployeeLeaveBO employeeLeaveBO = (EmployeeLeaveBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.EMPLOYEE_LEAVE);
 
     private void loadEmployeeLeaveTableData() throws SQLException{
-        ArrayList<EmployeeLeaveDTO> employeeLeaveDTOS = employeeLeaveModel.getAllEmployeeLeaves();
+        ArrayList<EmployeeLeaveDTO> employeeLeaveDTOS = employeeLeaveBO.getAll();
 
         ObservableList<EmployeeLeaveTM> employeeLeaveTMS = FXCollections.observableArrayList();
 
@@ -260,11 +264,13 @@ public class EmployeeLeaveFormController implements Initializable {
     }
 
     private void loadNextEmployeeLeaveId() throws SQLException {
-        String nextEmployeeLeaveId = employeeLeaveModel.getNextEmployeeLeaveId();
+        String nextEmployeeLeaveId = employeeLeaveBO.getNextId();
         lblLeaveId.setText(nextEmployeeLeaveId);
     }
 
     private final EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+
+    private final EmployeeLeaveDAO employeeLeaveDAO = new EmployeeLeaveDAOImpl();
 
     private void loadEmpIdsforLeaveTable() throws SQLException {
 
