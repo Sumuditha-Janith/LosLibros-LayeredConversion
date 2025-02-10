@@ -12,7 +12,9 @@ import javafx.scene.input.MouseEvent;
 import lk.ijse.gdse.loslibros.bo.BOFactory;
 import lk.ijse.gdse.loslibros.bo.custom.EmployeePayrollBO;
 import lk.ijse.gdse.loslibros.dao.custom.EmployeeDAO;
+import lk.ijse.gdse.loslibros.dao.custom.EmployeePayrollDAO;
 import lk.ijse.gdse.loslibros.dao.custom.impl.EmployeeDAOImpl;
+import lk.ijse.gdse.loslibros.dao.custom.impl.EmployeePayrollDAOImpl;
 import lk.ijse.gdse.loslibros.dto.EmployeeDTO;
 import lk.ijse.gdse.loslibros.dto.EmployeePayrollDTO;
 import lk.ijse.gdse.loslibros.view.tdm.EmployeePayrollTM;
@@ -137,35 +139,35 @@ public class EmployeePayrollFormController implements Initializable {
 
     @FXML
     void btnEmpPayUpdateOnAction(ActionEvent event) {
-//
-//        if (!validateFields()) {
-//            return;
-//        }
-//
-//        String payrollId = lblPayId.getText();
-//
-//        if (payrollId == null || payrollId.isEmpty()) {
-//            new Alert(Alert.AlertType.WARNING, "Please select a valid Payroll ID!").show();
-//            return;
-//        }
-//
-//        try {
-//            String deductions = txtDeductions.getText();
-//            String bonuses = txtBonus.getText();
-//
-//            boolean isUpdated = employeePayrollBO.update(deductions, bonuses);
-//
-//            if (isUpdated) {
-//                refreshPage();
-//                new Alert(Alert.AlertType.INFORMATION, "Updated successfully!").show();
-//            } else {
-//                new Alert(Alert.AlertType.ERROR, "Failed to update!").show();
-//            }
-//        } catch (NumberFormatException e) {
-//            new Alert(Alert.AlertType.ERROR, "Invalid input! Please enter valid numbers for Deductions and Bonuses.").show();
-//        } catch (Exception e) {
-//            new Alert(Alert.AlertType.ERROR, "Database error" + e.getMessage()).show();
-//        }
+
+        if (!validateFields()) {
+            return;
+        }
+
+        String payrollId = lblPayId.getText();
+
+        if (payrollId == null || payrollId.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please select a valid Payroll ID!").show();
+            return;
+        }
+
+        try {
+            String deductions = txtDeductions.getText();
+            String bonuses = txtBonus.getText();
+
+            boolean isUpdated = employeePayrollDAO.updateEmpPayroll(payrollId, deductions, bonuses);
+
+            if (isUpdated) {
+                refreshPage();
+                new Alert(Alert.AlertType.INFORMATION, "Updated successfully!").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to update!").show();
+            }
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid input! Please enter valid numbers for Deductions and Bonuses.").show();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Database error" + e.getMessage()).show();
+        }
     }
 
     @FXML
@@ -278,6 +280,7 @@ public class EmployeePayrollFormController implements Initializable {
     }
 
     private final EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+    private final EmployeePayrollDAO employeePayrollDAO = new EmployeePayrollDAOImpl();
 //    private final EmployeeModel employeeModel = new EmployeeModel();
 
 

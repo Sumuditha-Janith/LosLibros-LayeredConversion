@@ -11,14 +11,6 @@ import java.util.ArrayList;
 
 public interface EmployeePayrollDAO extends CrudDAO<EmployeePayrollDTO> {
 
-    public ArrayList<EmployeePayrollDTO> getAll() throws SQLException;
-
-    public String getNextId() throws SQLException;
-
-    public boolean save(EmployeePayrollDTO employeePayrollDTO) throws SQLException;
-
-    public boolean update(String payrollId, String deductions, String bonuses) throws SQLException;
-
-    public boolean delete(String payrollId) throws SQLException;
+    public boolean updateEmpPayroll(String payrollId, String deductions, String bonuses) throws SQLException;
 
 }

@@ -56,25 +56,24 @@ public class EmployeePayrollDAOImpl implements EmployeePayrollDAO {
         );
     }
 
-    @Override
     public boolean update(EmployeePayrollDTO dto) throws SQLException {
         return false;
     }
 
-    @Override
-    public boolean update(String payrollId, String deductions, String bonuses) throws SQLException {
-        return SQLUtil.execute(
-                "update employee_payroll set deductions = ?, bonuses = ? where payroll_id = ?",
-                deductions,
-                bonuses,
-                payrollId
-        );
-    }
 
 
     public boolean delete(String payrollId) throws SQLException {
         return SQLUtil.execute(
                 "delete from employee_payroll where payroll_id = ?",
+                payrollId
+        );
+    }
+
+    public boolean updateEmpPayroll(String payrollId, String deductions, String bonuses) throws SQLException {
+        return SQLUtil.execute(
+                "update employee_payroll set deductions = ?, bonuses = ? where payroll_id = ?",
+                deductions,
+                bonuses,
                 payrollId
         );
     }
