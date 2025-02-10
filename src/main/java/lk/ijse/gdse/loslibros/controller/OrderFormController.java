@@ -14,6 +14,7 @@ import lk.ijse.gdse.loslibros.dao.custom.BookDAO;
 import lk.ijse.gdse.loslibros.dao.custom.CustomerDAO;
 import lk.ijse.gdse.loslibros.dao.custom.impl.BookDAOImpl;
 import lk.ijse.gdse.loslibros.dao.custom.impl.CustomerDAOImpl;
+import lk.ijse.gdse.loslibros.dto.BookDTO;
 import lk.ijse.gdse.loslibros.dto.CustomerDTO;
 import lk.ijse.gdse.loslibros.dto.OrderDTO;
 import lk.ijse.gdse.loslibros.dto.OrderDetailsDTO;
@@ -191,8 +192,6 @@ public class OrderFormController implements Initializable {
         } else {
             new Alert(Alert.AlertType.ERROR, "Order failed..!").show();
         }
-
-
     }
 
     @FXML
@@ -203,22 +202,22 @@ public class OrderFormController implements Initializable {
     @FXML
     void cmbBookOnAction(ActionEvent event) throws SQLException {
 
-//        String selectedBookId = cmbBookId.getSelectionModel().getSelectedItem();
-//        BookDTO bookDTO = bookModel.findBookById(selectedBookId);
-//
-//        if (bookDTO != null) {
-//
-//            lblBookName.setText(bookDTO.getBookName());
-//            lblBookQty.setText(String.valueOf(bookDTO.getBookQuantity()));
-//            lblBookPrice.setText(String.valueOf(bookDTO.getBookPrice()));
-//        }
+        String selectedBookId = cmbBookId.getSelectionModel().getSelectedItem();
+        BookDTO bookDTO = bookDAO.findBookById(selectedBookId);
+
+        if (bookDTO != null) {
+
+            lblBookName.setText(bookDTO.getBookName());
+            lblBookQty.setText(String.valueOf(bookDTO.getBookQuantity()));
+            lblBookPrice.setText(String.valueOf(bookDTO.getBookPrice()));
+        }
 
     }
 
     @FXML
     void cmbCustomerOnAction(ActionEvent event) throws SQLException {
         String selectedCustomerId = cmbCustomerId.getSelectionModel().getSelectedItem();
-        CustomerDTO customerDTO = customerModel.findCusById(selectedCustomerId);
+        CustomerDTO customerDTO = customerDAO.findCusById(selectedCustomerId);
 
         if (customerDTO != null) {
 
@@ -229,7 +228,7 @@ public class OrderFormController implements Initializable {
     }
 
     private final OrderModel orderModel = new OrderModel();
-    private final CustomerDAO customerModel = new CustomerDAOImpl();
+    private final CustomerDAO customerDAO = new CustomerDAOImpl();
     private final BookBO bookBO = new BookBOImpl();
     private final BookDAO bookDAO = new BookDAOImpl();
 
@@ -264,8 +263,8 @@ public class OrderFormController implements Initializable {
 
         lblOrderDate.setText(LocalDate.now().toString());
 
-//        loadCustomerIds();
-//        loadBookIds();
+        loadCustomerIds();
+        loadBookIds();
 
 
         cmbCustomerId.getSelectionModel().clearSelection();
@@ -284,19 +283,18 @@ public class OrderFormController implements Initializable {
         tableCart.refresh();
     }
 
-//    private void loadBookIds() throws SQLException {
-//        ArrayList<String> bookIds = bookModel.getAllBookIds();
-//        ObservableList<String> observableList = FXCollections.observableArrayList();
-//        observableList.addAll(bookIds);
-//        cmbBookId.setItems(observableList);
-//    }
-//
-//    private void loadCustomerIds() throws SQLException {
-//        ArrayList<String> customerIds = customerModel.getAllCustomerIds();
-//        ObservableList<String> observableList = FXCollections.observableArrayList();
-//        observableList.addAll(customerIds);
-//        cmbCustomerId.setItems(observableList);
-//    }
+    private void loadBookIds() throws SQLException {
+        ArrayList<String> bookIds = bookDAO.getAllBookIds();
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        observableList.addAll(bookIds);
+        cmbBookId.setItems(observableList);
+    }
 
+    private void loadCustomerIds() throws SQLException {
+        ArrayList<String> customerIds = customerDAO.getAllCustomerIds();
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        observableList.addAll(customerIds);
+        cmbCustomerId.setItems(observableList);
+    }
 
 }
