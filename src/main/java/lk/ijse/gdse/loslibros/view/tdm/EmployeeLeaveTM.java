@@ -1,4 +1,4 @@
-package lk.ijse.gdse.loslibros.dto.tm;
+package lk.ijse.gdse.loslibros.tm;
 
 import java.sql.Date;
 

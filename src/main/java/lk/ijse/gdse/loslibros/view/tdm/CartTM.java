@@ -1,4 +1,4 @@
-package lk.ijse.gdse.loslibros.dto.tm;
+package lk.ijse.gdse.loslibros.tm;
 
 import javafx.scene.control.Button;
 import lombok.*;
