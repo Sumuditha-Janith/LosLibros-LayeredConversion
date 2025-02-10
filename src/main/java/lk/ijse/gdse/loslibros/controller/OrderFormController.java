@@ -14,12 +14,10 @@ import lk.ijse.gdse.loslibros.dao.custom.BookDAO;
 import lk.ijse.gdse.loslibros.dao.custom.CustomerDAO;
 import lk.ijse.gdse.loslibros.dao.custom.impl.BookDAOImpl;
 import lk.ijse.gdse.loslibros.dao.custom.impl.CustomerDAOImpl;
-import lk.ijse.gdse.loslibros.dto.BookDTO;
 import lk.ijse.gdse.loslibros.dto.CustomerDTO;
 import lk.ijse.gdse.loslibros.dto.OrderDTO;
 import lk.ijse.gdse.loslibros.dto.OrderDetailsDTO;
 import lk.ijse.gdse.loslibros.view.tdm.CartTM;
-import lk.ijse.gdse.loslibros.model.BookModel;
 import lk.ijse.gdse.loslibros.model.OrderModel;
 
 import java.net.URL;
@@ -232,7 +230,6 @@ public class OrderFormController implements Initializable {
 
     private final OrderModel orderModel = new OrderModel();
     private final CustomerDAO customerModel = new CustomerDAOImpl();
-    private final BookModel bookModel = new BookModel();
     private final BookBO bookBO = new BookBOImpl();
     private final BookDAO bookDAO = new BookDAOImpl();
 

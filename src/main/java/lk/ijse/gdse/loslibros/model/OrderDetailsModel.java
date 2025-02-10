@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class OrderDetailsModel {
 
-    public final BookModel bookModel = new BookModel();
+//    public final BookModel bookModel = new BookModel();
 
     public boolean saveOrderDetailsList(ArrayList<OrderDetailsDTO> orderDetailsDTOS) throws SQLException {
 //        for (OrderDetailsDTO orderDetailsDTO : orderDetailsDTOS) {

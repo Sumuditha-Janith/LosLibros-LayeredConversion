@@ -303,7 +303,7 @@ public class BookFormController implements Initializable {
     }
 
 
-    BookModel bookModel = new BookModel();
+//    BookModel bookModel = new BookModel();
 
     private void loadTableData() throws SQLException, ClassNotFoundException {
         ArrayList<BookDTO> bookDTOS = bookBO.getAll();
