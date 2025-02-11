@@ -165,7 +165,38 @@ public class BookFormController implements Initializable {
 
     @FXML
     void btnBookUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        if (!validateFields()) {
+            return;
+        }
 
+        String bookId = lblBookId.getText();
+        String bookName = txtBookName.getText();
+        String authorId = cmbAuthorId.getValue();
+        String categoryId = cmbCategoryId.getValue();
+        String publisherId = cmbPublisherId.getValue();
+        String supplierId = cmbSupplierId.getValue();
+        String bookPrice = txtBookPrice.getText();
+        String bookQuantity = txtBookQuantity.getText();
+
+        BookDTO bookDTO = new BookDTO(
+                bookId,
+                bookName,
+                authorId,
+                categoryId,
+                publisherId,
+                supplierId,
+                bookPrice,
+                bookQuantity
+        );
+
+        boolean isUpdated = bookBO.update(bookDTO);
+
+        if (isUpdated) {
+            refreshPage();
+            new Alert(Alert.AlertType.INFORMATION, "Book updated successfully!").show();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Failed to update the book!").show();
+        }
     }
 
     @FXML
