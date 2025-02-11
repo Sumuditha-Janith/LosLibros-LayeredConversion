@@ -11,14 +11,6 @@ import javafx.scene.input.MouseEvent;
 
 import lk.ijse.gdse.loslibros.bo.BOFactory;
 import lk.ijse.gdse.loslibros.bo.custom.*;
-import lk.ijse.gdse.loslibros.dao.custom.AuthorDAO;
-import lk.ijse.gdse.loslibros.dao.custom.CategoryDAO;
-import lk.ijse.gdse.loslibros.dao.custom.PublisherDAO;
-import lk.ijse.gdse.loslibros.dao.custom.SupplierDAO;
-import lk.ijse.gdse.loslibros.dao.custom.impl.AuthorDAOImpl;
-import lk.ijse.gdse.loslibros.dao.custom.impl.CategoryDAOImpl;
-import lk.ijse.gdse.loslibros.dao.custom.impl.PublisherDAOImpl;
-import lk.ijse.gdse.loslibros.dao.custom.impl.SupplierDAOImpl;
 import lk.ijse.gdse.loslibros.dto.*;
 import lk.ijse.gdse.loslibros.view.tdm.BookTM;
 
@@ -214,7 +206,7 @@ public class BookFormController implements Initializable {
     void cmbCategoryOnAction(ActionEvent event) throws SQLException {
 
         String selectedCategoryId = (String) cmbCategoryId.getSelectionModel().getSelectedItem();
-        CategoryDTO categoryDTO = categoryDAO.findCategoryById(selectedCategoryId);
+        CategoryDTO categoryDTO = categoryBO.findCategoryById(selectedCategoryId);
 
         if (categoryDTO != null) {
 
@@ -226,19 +218,18 @@ public class BookFormController implements Initializable {
     @FXML
     void cmbPublisherOnAction(ActionEvent event) throws SQLException {
         String selectedPublisherId = (String) cmbPublisherId.getSelectionModel().getSelectedItem();
-        PublisherDTO publisherDTO = publisherDAO.findPublisherById(selectedPublisherId);
+        PublisherDTO publisherDTO = publisherBO.findPublisherById(selectedPublisherId);
 
         if (publisherDTO != null) {
             lblPublisherName.setText(publisherDTO.getPublisherName());
         }
     }
 
-
     @FXML
     void cmbSupplierOnAction(ActionEvent event) throws SQLException {
 
         String selectedSupplierId = (String) cmbSupplierId.getSelectionModel().getSelectedItem();
-        SupplierDTO supplierDTO = supplierDAO.findSupplierById(selectedSupplierId);
+        SupplierDTO supplierDTO = supplierBO.findSupplierById(selectedSupplierId);
 
         if (supplierDTO != null) {
 
@@ -272,12 +263,6 @@ public class BookFormController implements Initializable {
     CategoryBO categoryBO = (CategoryBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.CATEGORY);
     PublisherBO publisherBO = (PublisherBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.PUBLISHER);
     SupplierBO supplierBO = (SupplierBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.SUPPLIER);
-
-//    private final AuthorDAO authorDAO = new AuthorDAOImpl();
-    private final CategoryDAO categoryDAO = new CategoryDAOImpl();
-    private final PublisherDAO publisherDAO = new PublisherDAOImpl();
-    private final SupplierDAO supplierDAO = new SupplierDAOImpl();
-
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colBookId.setCellValueFactory(new PropertyValueFactory<>("bookId"));
@@ -332,9 +317,6 @@ public class BookFormController implements Initializable {
         lblBookId.setText(nextBookId);
     }
 
-
-//    BookModel bookModel = new BookModel();
-
     private void loadTableData() throws SQLException, ClassNotFoundException {
         ArrayList<BookDTO> bookDTOS = bookBO.getAll();
 
@@ -358,7 +340,6 @@ public class BookFormController implements Initializable {
         tableBook.setItems(bookTMS);
     }
 
-
     private void loadAuthorIds() throws SQLException {
         ArrayList <String> authorIds = authorBO.getAllAuthorIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
@@ -367,21 +348,21 @@ public class BookFormController implements Initializable {
     }
 
     private void loadCategoryIds() throws SQLException {
-        ArrayList<String> categoryIds = categoryDAO.getAllCategoryIds();
+        ArrayList<String> categoryIds = categoryBO.getAllCategoryIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(categoryIds);
         cmbCategoryId.setItems(observableList);
     }
 
     private void loadPublisherIds() throws SQLException {
-        ArrayList<String> publisherIds = publisherDAO.getAllPublisherIds();
+        ArrayList<String> publisherIds = publisherBO.getAllPublisherIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(publisherIds);
         cmbPublisherId.setItems(observableList);
     }
 
     private void loadSupplierIds() throws SQLException {
-        ArrayList<String> supplierIds = supplierDAO.getAllSupplierIds();
+        ArrayList<String> supplierIds = supplierBO.getAllSupplierIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(supplierIds);
         cmbSupplierId.setItems(observableList);

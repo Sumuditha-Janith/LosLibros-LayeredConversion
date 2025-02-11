@@ -37,4 +37,14 @@ public class SupplierBOImpl implements SupplierBO {
     public boolean delete(String supplierId) throws SQLException {
         return supplierDAO.delete(supplierId);
     }
+
+    @Override
+    public ArrayList<String> getAllSupplierIds() throws SQLException {
+        return supplierDAO.getAllSupplierIds();
+    }
+
+    @Override
+    public SupplierDTO findSupplierById(String selectedSupplierId) throws SQLException {
+        return supplierDAO.findSupplierById(selectedSupplierId);
+    }
 }

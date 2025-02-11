@@ -18,4 +18,8 @@ public interface SupplierBO extends SuperBO {
 
     public boolean delete(String supplierId) throws SQLException;
 
+    public ArrayList<String> getAllSupplierIds() throws SQLException;
+
+    public SupplierDTO findSupplierById(String selectedSupplierId) throws SQLException;
+
 }

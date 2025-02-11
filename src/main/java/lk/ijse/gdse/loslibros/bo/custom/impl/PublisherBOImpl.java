@@ -36,4 +36,14 @@ public class PublisherBOImpl implements PublisherBO {
     public boolean delete(String dto) throws SQLException {
         return publisherDAO.delete(dto);
     }
+
+    @Override
+    public ArrayList<String> getAllPublisherIds() throws SQLException {
+        return publisherDAO.getAllPublisherIds();
+    }
+
+    @Override
+    public PublisherDTO findPublisherById(String selectedPublisherId) throws SQLException {
+        return publisherDAO.findPublisherById(selectedPublisherId);
+    }
 }

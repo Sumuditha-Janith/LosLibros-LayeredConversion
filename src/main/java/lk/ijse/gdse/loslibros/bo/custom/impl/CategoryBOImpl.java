@@ -44,4 +44,14 @@ public class CategoryBOImpl implements CategoryBO {
     public boolean delete(String dto) throws SQLException {
         return categoryDAO.delete(dto);
     }
+
+    @Override
+    public ArrayList<String> getAllCategoryIds() throws SQLException {
+        return categoryDAO.getAllCategoryIds();
+    }
+
+    @Override
+    public CategoryDTO findCategoryById(String selectedCategoryId) throws SQLException {
+        return categoryDAO.findCategoryById(selectedCategoryId);
+    }
 }

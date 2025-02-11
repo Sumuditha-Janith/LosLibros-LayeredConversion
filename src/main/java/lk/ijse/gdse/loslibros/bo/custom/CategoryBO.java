@@ -18,4 +18,8 @@ public interface CategoryBO extends SuperBO {
 
     public boolean delete(String dto) throws SQLException;
 
+    public ArrayList<String> getAllCategoryIds() throws SQLException;
+
+    public CategoryDTO findCategoryById(String selectedCategoryId) throws SQLException;
+
 }

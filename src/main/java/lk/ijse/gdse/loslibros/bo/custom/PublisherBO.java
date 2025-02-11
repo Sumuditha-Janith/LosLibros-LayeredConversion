@@ -18,4 +18,8 @@ public interface PublisherBO extends SuperBO {
 
     public boolean delete(String dto) throws SQLException;
 
+    public ArrayList<String> getAllPublisherIds() throws SQLException;
+
+    public PublisherDTO findPublisherById(String selectedPublisherId) throws SQLException;
+
 }
