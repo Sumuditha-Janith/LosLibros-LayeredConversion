@@ -28,7 +28,7 @@ public class LoginFormController {
         String username = txtUsername.getText();
         String password = pwdPassword.getText();
 
-        if ((username.equals("") && password.equals("")) ||
+        if ((username.equals("sje") && password.equals("0123")) ||
                 (username.equals("employee") && password.equals("1234"))) {
             loggedInUser = username;
             AnchorPane load = FXMLLoader.load(getClass().getResource("/view/DashBoard.fxml"));

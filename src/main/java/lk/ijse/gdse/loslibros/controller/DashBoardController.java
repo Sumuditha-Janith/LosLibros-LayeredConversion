@@ -31,7 +31,7 @@ public class DashBoardController {
 
     @FXML
     public void initialize() {
-        if (!"".equals(loggedInUser)) {
+        if (!"sje".equals(loggedInUser)) {
             buttonManageEmp.setDisable(true);
             buttonEmpLeave.setDisable(true);
             buttonEmpPayroll.setDisable(true);
