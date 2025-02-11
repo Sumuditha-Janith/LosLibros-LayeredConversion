@@ -8,8 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import lk.ijse.gdse.loslibros.bo.custom.BookBO;
-import lk.ijse.gdse.loslibros.bo.custom.impl.BookBOImpl;
+import lk.ijse.gdse.loslibros.bo.BOFactory;
+import lk.ijse.gdse.loslibros.bo.custom.PalaceOrderBO;
 import lk.ijse.gdse.loslibros.dao.custom.BookDAO;
 import lk.ijse.gdse.loslibros.dao.custom.CustomerDAO;
 import lk.ijse.gdse.loslibros.dao.custom.impl.BookDAOImpl;
@@ -19,8 +19,6 @@ import lk.ijse.gdse.loslibros.dto.CustomerDTO;
 import lk.ijse.gdse.loslibros.dto.OrderDTO;
 import lk.ijse.gdse.loslibros.dto.OrderDetailsDTO;
 import lk.ijse.gdse.loslibros.view.tdm.CartTM;
-import lk.ijse.gdse.loslibros.model.OrderModel;
-
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -77,6 +75,12 @@ public class OrderFormController implements Initializable {
 
     @FXML
     private TextField txtAddToCartQty;
+
+
+
+    CustomerDAO customerDAO = new CustomerDAOImpl();
+    BookDAO bookDAO = new BookDAOImpl();
+    PalaceOrderBO orderBO = (PalaceOrderBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.PLACEORDER);
 
     @FXML
     void btnAddToCartOnAction(ActionEvent event) {
@@ -183,7 +187,7 @@ public class OrderFormController implements Initializable {
                 orderDetailsDTOS
         );
 
-        boolean isSaved = orderModel.saveOrder(orderDTO);
+        boolean isSaved = orderBO.placeOrder(orderDTO);
 
         if (isSaved) {
             new Alert(Alert.AlertType.INFORMATION, "Order saved..!").show();
@@ -227,10 +231,7 @@ public class OrderFormController implements Initializable {
         }
     }
 
-    private final OrderModel orderModel = new OrderModel();
-    private final CustomerDAO customerDAO = new CustomerDAOImpl();
-    private final BookBO bookBO = new BookBOImpl();
-    private final BookDAO bookDAO = new BookDAOImpl();
+
 
     private final ObservableList<CartTM> cartTMS = FXCollections.observableArrayList();
 
@@ -257,9 +258,8 @@ public class OrderFormController implements Initializable {
         tableCart.setItems(cartTMS);
     }
 
-
     private void refreshPage() throws SQLException {
-        lblOrderId.setText(orderModel.getNextOrderId());
+        lblOrderId.setText(orderBO.getNextOrderId());
 
         lblOrderDate.setText(LocalDate.now().toString());
 

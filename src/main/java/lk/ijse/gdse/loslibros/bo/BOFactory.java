@@ -10,31 +10,33 @@ public class BOFactory {
     }
 
     public enum BOType {
-        CUSTOMER,AUTHOR,CATEGORY,PUBLISHER,SUPPLIER,EMPLOYEE,EMPLOYEE_PAYROLL,EMPLOYEE_LEAVE,BOOK,ORDER,ORDER_DETAILS
+        CUSTOMER,AUTHOR,CATEGORY,PUBLISHER,SUPPLIER,EMPLOYEE,EMPLOYEE_PAYROLL,EMPLOYEE_LEAVE,BOOK,PLACEORDER
     }
 
     public SuperBO getSuperBO(BOType type) {
         switch (type) {
             case CUSTOMER:
                 return new CustomerBOImpl();
-                case AUTHOR:
-                    return new AuthorBOImpl();
-                    case CATEGORY:
-                        return new CategoryBOImpl();
-                        case PUBLISHER:
-                            return new PublisherBOImpl();
-                            case SUPPLIER:
-                                return new SupplierBOImpl();
-                                case EMPLOYEE:
-                                    return new EmployeeBOImpl();
-                                    case EMPLOYEE_PAYROLL:
-                                        return new EmployeePayrollBOImpl();
-                                        case EMPLOYEE_LEAVE:
-                                            return new EmployeeLeaveBOImpl();
-                                            case BOOK:
-                                                return new BookBOImpl();
-                default:
-                    return null;
+            case AUTHOR:
+                return new AuthorBOImpl();
+            case CATEGORY:
+                return new CategoryBOImpl();
+            case PUBLISHER:
+                return new PublisherBOImpl();
+            case SUPPLIER:
+                return new SupplierBOImpl();
+            case EMPLOYEE:
+                return new EmployeeBOImpl();
+            case EMPLOYEE_PAYROLL:
+                return new EmployeePayrollBOImpl();
+            case EMPLOYEE_LEAVE:
+                return new EmployeeLeaveBOImpl();
+            case BOOK:
+                return new BookBOImpl();
+            case PLACEORDER:
+                return new PalaceOrderBOImpl();
+            default:
+                return null;
         }
 
     }
