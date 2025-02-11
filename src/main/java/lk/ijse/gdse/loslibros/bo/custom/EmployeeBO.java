@@ -18,4 +18,8 @@ public interface EmployeeBO extends SuperBO {
 
     public boolean delete(String empId) throws SQLException;
 
+    public ArrayList<String> getAllEmployIds() throws SQLException;
+
+    public EmployeeDTO findEmpById(String employeeId) throws SQLException;
+
 }

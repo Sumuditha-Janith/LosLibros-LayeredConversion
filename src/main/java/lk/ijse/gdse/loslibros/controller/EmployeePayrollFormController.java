@@ -10,11 +10,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 import lk.ijse.gdse.loslibros.bo.BOFactory;
+import lk.ijse.gdse.loslibros.bo.custom.EmployeeBO;
 import lk.ijse.gdse.loslibros.bo.custom.EmployeePayrollBO;
-import lk.ijse.gdse.loslibros.dao.custom.EmployeeDAO;
-import lk.ijse.gdse.loslibros.dao.custom.EmployeePayrollDAO;
-import lk.ijse.gdse.loslibros.dao.custom.impl.EmployeeDAOImpl;
-import lk.ijse.gdse.loslibros.dao.custom.impl.EmployeePayrollDAOImpl;
 import lk.ijse.gdse.loslibros.dto.EmployeeDTO;
 import lk.ijse.gdse.loslibros.dto.EmployeePayrollDTO;
 import lk.ijse.gdse.loslibros.view.tdm.EmployeePayrollTM;
@@ -155,7 +152,7 @@ public class EmployeePayrollFormController implements Initializable {
             String deductions = txtDeductions.getText();
             String bonuses = txtBonus.getText();
 
-            boolean isUpdated = employeePayrollDAO.updateEmpPayroll(payrollId, deductions, bonuses);
+            boolean isUpdated = employeePayrollBO.updateEmpPayroll(payrollId, deductions, bonuses);
 
             if (isUpdated) {
                 refreshPage();
@@ -174,7 +171,7 @@ public class EmployeePayrollFormController implements Initializable {
     void cmbEmployeeOnAction(ActionEvent event) throws SQLException {
 
         String selectedPayFormEmpId = cmbEmployeeIdPf.getSelectionModel().getSelectedItem();
-        EmployeeDTO employeeDTO = employeeDAO.findEmpById(selectedPayFormEmpId);
+        EmployeeDTO employeeDTO = employeeBO.findEmpById(selectedPayFormEmpId);
 
         if (employeeDTO != null) {
             lblEmployeeNamePf.setText(employeeDTO.getEmpName());
@@ -247,8 +244,8 @@ public class EmployeePayrollFormController implements Initializable {
 
     }
 
+    EmployeeBO employeeBO = (EmployeeBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.EMPLOYEE_LEAVE);
     EmployeePayrollBO employeePayrollBO = (EmployeePayrollBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.EMPLOYEE_PAYROLL);
-//    EmployeePayrollModel employeePayrollModel = new EmployeePayrollModel();
 
     private void loadEmpPayTableData() throws SQLException {
         ArrayList<EmployeePayrollDTO> employeePayrollDTOS = employeePayrollBO.getAll();
@@ -279,18 +276,12 @@ public class EmployeePayrollFormController implements Initializable {
 
     }
 
-    private final EmployeeDAO employeeDAO = new EmployeeDAOImpl();
-    private final EmployeePayrollDAO employeePayrollDAO = new EmployeePayrollDAOImpl();
-//    private final EmployeeModel employeeModel = new EmployeeModel();
-
-
     private void loadEmpIds() throws SQLException {
 
-        ArrayList<String> employeeIds = employeeDAO.getAllEmployIds();
+        ArrayList<String> employeeIds = employeeBO.getAllEmployIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(employeeIds);
         cmbEmployeeIdPf.setItems(observableList);
-
 
     }
 

@@ -165,7 +165,6 @@ public class SupplierFormController {
 
     SupplierBO supplierBO = (SupplierBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.SUPPLIER);
 
-
     private void loadTableData() throws SQLException {
         ArrayList<SupplierDTO> supplierDTOS = supplierBO.getAll();
 

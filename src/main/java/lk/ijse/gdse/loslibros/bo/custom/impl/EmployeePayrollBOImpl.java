@@ -60,4 +60,9 @@ public class EmployeePayrollBOImpl implements EmployeePayrollBO {
         return employeePayrollDAO.delete(payrollId);
     }
 
+    @Override
+    public boolean updateEmpPayroll(String payrollId, String deductions, String bonuses) throws SQLException {
+        return employeePayrollDAO.updateEmpPayroll(payrollId, deductions, bonuses);
+    }
+
 }

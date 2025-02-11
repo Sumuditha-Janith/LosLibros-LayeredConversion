@@ -39,5 +39,15 @@ public class EmployeeBOImpl implements EmployeeBO {
         return employeeDAO.delete(empId);
     }
 
+    @Override
+    public ArrayList<String> getAllEmployIds() throws SQLException {
+        return employeeDAO.getAllEmployIds();
+    }
+
+    @Override
+    public EmployeeDTO findEmpById(String employeeId) throws SQLException {
+        return employeeDAO.findEmpById(employeeId);
+    }
+
 }
 

@@ -9,11 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.gdse.loslibros.bo.BOFactory;
+import lk.ijse.gdse.loslibros.bo.custom.EmployeeBO;
 import lk.ijse.gdse.loslibros.bo.custom.EmployeeLeaveBO;
-import lk.ijse.gdse.loslibros.dao.custom.EmployeeDAO;
-import lk.ijse.gdse.loslibros.dao.custom.EmployeeLeaveDAO;
-import lk.ijse.gdse.loslibros.dao.custom.impl.EmployeeDAOImpl;
-import lk.ijse.gdse.loslibros.dao.custom.impl.EmployeeLeaveDAOImpl;
 import lk.ijse.gdse.loslibros.dto.EmployeeDTO;
 import lk.ijse.gdse.loslibros.dto.EmployeeLeaveDTO;
 import lk.ijse.gdse.loslibros.view.tdm.EmployeeLeaveTM;
@@ -174,7 +171,7 @@ public class EmployeeLeaveFormController implements Initializable {
     @FXML
     void cmbEmployeeOnAction(ActionEvent event) throws SQLException {
         String selectedLeaveFormEmpId = cmbEmployeeId.getSelectionModel().getSelectedItem();
-        EmployeeDTO employeeDTO = employeeDAO.findEmpById(selectedLeaveFormEmpId);
+        EmployeeDTO employeeDTO = employeeBO.findEmpById(selectedLeaveFormEmpId);
 
         if (employeeDTO != null) {
             lblEmployeeName.setText(employeeDTO.getEmpName());
@@ -243,6 +240,7 @@ public class EmployeeLeaveFormController implements Initializable {
 
 
     EmployeeLeaveBO employeeLeaveBO = (EmployeeLeaveBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.EMPLOYEE_LEAVE);
+    EmployeeBO employeeBO = (EmployeeBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.EMPLOYEE);
 
     private void loadEmployeeLeaveTableData() throws SQLException{
         ArrayList<EmployeeLeaveDTO> employeeLeaveDTOS = employeeLeaveBO.getAll();
@@ -268,13 +266,10 @@ public class EmployeeLeaveFormController implements Initializable {
         lblLeaveId.setText(nextEmployeeLeaveId);
     }
 
-    private final EmployeeDAO employeeDAO = new EmployeeDAOImpl();
-
-    private final EmployeeLeaveDAO employeeLeaveDAO = new EmployeeLeaveDAOImpl();
 
     private void loadEmpIdsforLeaveTable() throws SQLException {
 
-        ArrayList<String> employeeIds = employeeDAO.getAllEmployIds();
+        ArrayList<String> employeeIds = employeeBO.getAllEmployIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(employeeIds);
         cmbEmployeeId.setItems(observableList);
