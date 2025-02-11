@@ -10,14 +10,14 @@ public interface EmployeePayrollBO extends SuperBO {
 
     ArrayList<EmployeePayrollDTO> getAll() throws SQLException;
 
-    public String getNextId() throws SQLException;
+    String getNextId() throws SQLException;
 
-    public boolean save(EmployeePayrollDTO employeePayrollDTO) throws SQLException;
+    boolean save(EmployeePayrollDTO employeePayrollDTO) throws SQLException;
 
-    public boolean update(EmployeePayrollDTO employeePayrollDTO) throws SQLException;
+    boolean update(EmployeePayrollDTO employeePayrollDTO) throws SQLException;
 
-    public boolean delete(String payrollId) throws SQLException;
+    boolean delete(String payrollId) throws SQLException;
 
-    public boolean updateEmpPayroll(String payrollId, String deductions, String bonuses) throws SQLException;
+    boolean updateEmpPayroll(String payrollId, String deductions, String bonuses) throws SQLException;
 
 }

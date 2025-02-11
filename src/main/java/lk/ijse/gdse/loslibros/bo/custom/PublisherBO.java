@@ -8,18 +8,18 @@ import java.util.ArrayList;
 
 public interface PublisherBO extends SuperBO {
 
-    public ArrayList<PublisherDTO> getAll() throws SQLException;
+    ArrayList<PublisherDTO> getAll() throws SQLException;
 
-    public String getNextId() throws SQLException;
+    String getNextId() throws SQLException;
 
-    public boolean save(PublisherDTO publisherDTO) throws SQLException;
+    boolean save(PublisherDTO publisherDTO) throws SQLException;
 
-    public boolean update(PublisherDTO publisherDTO) throws SQLException;
+    boolean update(PublisherDTO publisherDTO) throws SQLException;
 
-    public boolean delete(String dto) throws SQLException;
+    boolean delete(String dto) throws SQLException;
 
-    public ArrayList<String> getAllPublisherIds() throws SQLException;
+    ArrayList<String> getAllPublisherIds() throws SQLException;
 
-    public PublisherDTO findPublisherById(String selectedPublisherId) throws SQLException;
+    PublisherDTO findPublisherById(String selectedPublisherId) throws SQLException;
 
 }

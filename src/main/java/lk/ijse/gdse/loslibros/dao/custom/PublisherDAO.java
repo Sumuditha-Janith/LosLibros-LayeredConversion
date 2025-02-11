@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public interface PublisherDAO extends CrudDAO<Publisher> {
 
-    public ArrayList<String> getAllPublisherIds() throws SQLException;
+    ArrayList<String> getAllPublisherIds() throws SQLException;
 
-    public PublisherDTO findPublisherById(String selectedPublisherId) throws SQLException;
+    PublisherDTO findPublisherById(String selectedPublisherId) throws SQLException;
 
 }

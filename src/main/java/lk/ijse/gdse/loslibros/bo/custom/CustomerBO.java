@@ -8,18 +8,18 @@ import java.util.ArrayList;
 
 public interface CustomerBO extends SuperBO {
 
-    public ArrayList<CustomerDTO> getAll() throws SQLException ;
+    ArrayList<CustomerDTO> getAll() throws SQLException ;
 
-    public String getNextId() throws SQLException ;
+    String getNextId() throws SQLException ;
 
-    public boolean save(CustomerDTO customerDTO) throws SQLException ;
+    boolean save(CustomerDTO customerDTO) throws SQLException ;
 
-    public boolean update(CustomerDTO customerDTO) throws SQLException;
+    boolean update(CustomerDTO customerDTO) throws SQLException;
 
-    public boolean delete(String customerId) throws SQLException ;
+    boolean delete(String customerId) throws SQLException ;
 
-    public ArrayList<String> getAllCustomerIds() throws SQLException;
+    ArrayList<String> getAllCustomerIds() throws SQLException;
 
-    public CustomerDTO findCusById(String selectedCusId) throws SQLException;
+    CustomerDTO findCusById(String selectedCusId) throws SQLException;
 
 }

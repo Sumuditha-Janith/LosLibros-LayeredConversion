@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public interface AuthorDAO extends CrudDAO<Author> {
 
-    public ArrayList<String> getAllAuthorIds() throws SQLException;
+    ArrayList<String> getAllAuthorIds() throws SQLException;
 
-    public AuthorDTO findAuthById(String selectedAuthorId) throws SQLException;
+    AuthorDTO findAuthById(String selectedAuthorId) throws SQLException;
 }

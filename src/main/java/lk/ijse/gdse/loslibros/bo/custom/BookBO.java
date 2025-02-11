@@ -18,8 +18,6 @@ public interface BookBO extends SuperBO {
 
     boolean delete(String bookId) throws SQLException;
 
-    boolean reduceQty(String bookId, int quantity) throws SQLException;
-
     ArrayList<String> getAllBookIds() throws SQLException;
 
     BookDTO findBookById(String bookId) throws SQLException;

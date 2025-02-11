@@ -2,7 +2,6 @@ package lk.ijse.gdse.loslibros.dao.custom.impl;
 
 import lk.ijse.gdse.loslibros.dao.SQLUtil;
 import lk.ijse.gdse.loslibros.dao.custom.OrderDAO;
-import lk.ijse.gdse.loslibros.dto.OrderDTO;
 import lk.ijse.gdse.loslibros.entity.Order;
 
 import java.sql.ResultSet;
@@ -49,7 +48,5 @@ public class OrderDAOImpl implements OrderDAO {
     public boolean delete(String dto) throws SQLException {
         return false;
     }
-
-
 
 }

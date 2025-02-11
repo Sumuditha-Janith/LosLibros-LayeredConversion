@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public interface CategoryDAO extends CrudDAO<Category> {
 
-    public ArrayList<String> getAllCategoryIds() throws SQLException;
+    ArrayList<String> getAllCategoryIds() throws SQLException;
 
-    public CategoryDTO findCategoryById(String selectedCategoryId) throws SQLException;
+    CategoryDTO findCategoryById(String selectedCategoryId) throws SQLException;
 
 }

@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public interface SupplierDAO extends CrudDAO<Supplier> {
 
-    public ArrayList<String> getAllSupplierIds() throws SQLException;
+    ArrayList<String> getAllSupplierIds() throws SQLException;
 
-    public SupplierDTO findSupplierById(String selectedSupplierId) throws SQLException;
+    SupplierDTO findSupplierById(String selectedSupplierId) throws SQLException;
 
 }

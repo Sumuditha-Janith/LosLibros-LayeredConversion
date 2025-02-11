@@ -8,18 +8,18 @@ import java.util.ArrayList;
 
 public interface SupplierBO extends SuperBO {
 
-    public ArrayList<SupplierDTO> getAll() throws SQLException;
+    ArrayList<SupplierDTO> getAll() throws SQLException;
 
-    public String getNextId() throws SQLException;
+    String getNextId() throws SQLException;
 
-    public boolean save(SupplierDTO supplierDTO) throws SQLException;
+    boolean save(SupplierDTO supplierDTO) throws SQLException;
 
-    public boolean update(SupplierDTO supplierDTO) throws SQLException;
+    boolean update(SupplierDTO supplierDTO) throws SQLException;
 
-    public boolean delete(String supplierId) throws SQLException;
+    boolean delete(String supplierId) throws SQLException;
 
-    public ArrayList<String> getAllSupplierIds() throws SQLException;
+    ArrayList<String> getAllSupplierIds() throws SQLException;
 
-    public SupplierDTO findSupplierById(String selectedSupplierId) throws SQLException;
+    SupplierDTO findSupplierById(String selectedSupplierId) throws SQLException;
 
 }

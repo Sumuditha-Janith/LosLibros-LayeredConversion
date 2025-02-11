@@ -9,13 +9,14 @@ import java.util.ArrayList;
 
 public interface PalaceOrderBO extends SuperBO {
 
-    public String getNextOrderId() throws SQLException;
+    String getNextOrderId() throws SQLException;
 
     boolean saveOrder(OrderDTO orderDTO) throws SQLException;
 
-    public boolean placeOrder(OrderDTO orderDTO) throws SQLException;
+    boolean placeOrder(OrderDTO orderDTO) throws SQLException;
 
-    public  boolean saveOrderDetailsList(ArrayList<OrderDetailsDTO> orderDetailsDTOS) throws SQLException ;
+    boolean saveOrderDetailsList(ArrayList<OrderDetailsDTO> orderDetailsDTOS) throws SQLException ;
 
-    public boolean saveOrderDetail(OrderDetailsDTO orderDetailsDTO) throws SQLException;
+    boolean saveOrderDetail(OrderDetailsDTO orderDetailsDTO) throws SQLException;
+
 }

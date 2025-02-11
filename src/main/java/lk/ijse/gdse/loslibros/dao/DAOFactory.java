@@ -1,6 +1,5 @@
 package lk.ijse.gdse.loslibros.dao;
 
-import lk.ijse.gdse.loslibros.dao.custom.EmployeePayrollDAO;
 import lk.ijse.gdse.loslibros.dao.custom.impl.*;
 
 public class DAOFactory {

@@ -8,18 +8,18 @@ import java.util.ArrayList;
 
 public interface EmployeeBO extends SuperBO {
 
-    public ArrayList<EmployeeDTO> getAll() throws SQLException;
+    ArrayList<EmployeeDTO> getAll() throws SQLException;
 
-    public String getNextId() throws SQLException;
+    String getNextId() throws SQLException;
 
-    public boolean save(EmployeeDTO employeeDTO) throws SQLException;
+    boolean save(EmployeeDTO employeeDTO) throws SQLException;
 
-    public boolean update(EmployeeDTO employeeDTO) throws SQLException;
+    boolean update(EmployeeDTO employeeDTO) throws SQLException;
 
-    public boolean delete(String empId) throws SQLException;
+    boolean delete(String empId) throws SQLException;
 
-    public ArrayList<String> getAllEmployIds() throws SQLException;
+    ArrayList<String> getAllEmployIds() throws SQLException;
 
-    public EmployeeDTO findEmpById(String employeeId) throws SQLException;
+    EmployeeDTO findEmpById(String employeeId) throws SQLException;
 
 }

@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 public interface CustomerDAO extends CrudDAO<Customer> {
 
-    public ArrayList<String> getAllCustomerIds() throws SQLException;
+    ArrayList<String> getAllCustomerIds() throws SQLException;
 
-    public CustomerDTO findCusById(String selectedCusId) throws SQLException;
+    CustomerDTO findCusById(String selectedCusId) throws SQLException;
 
 
 }
