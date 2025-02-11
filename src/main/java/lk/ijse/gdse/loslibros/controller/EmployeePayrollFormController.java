@@ -244,8 +244,8 @@ public class EmployeePayrollFormController implements Initializable {
 
     }
 
-    EmployeeBO employeeBO = (EmployeeBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.EMPLOYEE_LEAVE);
     EmployeePayrollBO employeePayrollBO = (EmployeePayrollBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.EMPLOYEE_PAYROLL);
+    EmployeeBO employeeBO = (EmployeeBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.EMPLOYEE);
 
     private void loadEmpPayTableData() throws SQLException {
         ArrayList<EmployeePayrollDTO> employeePayrollDTOS = employeePayrollBO.getAll();

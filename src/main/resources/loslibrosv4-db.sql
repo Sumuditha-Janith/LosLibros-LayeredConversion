@@ -1,146 +1,112 @@
-create database yougurtprodution;
+CREATE DATABASE loslibrosv4;
+USE loslibrosv4;
 
-use yougurtprodution;
-
-create table user(
-    username varchar(300) primary key,
-    password varchar(300),
-    email varchar(300)
+CREATE TABLE customer (
+        cus_id VARCHAR(5) PRIMARY KEY,
+        cus_name VARCHAR(50),
+        cus_address VARCHAR(50),
+        p_num VARCHAR(15)
 );
 
-
-create table Customer(
-     cust_id varchar(10) primary key ,
-     name varchar(100),
-     nic varchar(100),
-     email varchar(100),
-     phone varchar(20)
+CREATE TABLE supplier (
+        sup_id VARCHAR(4) PRIMARY KEY,
+        sup_name VARCHAR(35)
 );
 
-
-create table Employee (
-    Emp_ID varchar(20)primary key,
-    Emp_Name varchar(100),
-    Emp_Nic varchar(20),
-    Emp_Email varchar(255),
-    Emp_Phone int
+CREATE TABLE category (
+        cat_id VARCHAR(4) PRIMARY KEY,
+        cat_name VARCHAR(20)
 );
 
-create table Supplier(
-    Sup_ID varchar(100) primary key,
-    Sup_Name varchar(100),
-    Sup_Nic varchar(20),
-    Sup_Email varchar(255),
-    Sup_Phone int
+CREATE TABLE author (
+        au_id VARCHAR(4) PRIMARY KEY,
+        au_name VARCHAR(50)
 );
 
-create table Material(
-    Mat_ID varchar(100) primary key,
-    Mat_Name varchar(100),
-    Qty int,
-    Price int
-
+CREATE TABLE publisher (
+        pub_id VARCHAR(4) PRIMARY KEY,
+        pub_name VARCHAR(50)
 );
 
-create table Production_mix_recip(
-    Prod_Name varchar(200) primary key,
-    Milk_qty int,
-    Sugur_qty int,
-    Jeliy_qty int
-
+CREATE TABLE book (
+        b_id VARCHAR(4) PRIMARY KEY,
+        b_name VARCHAR(50),
+        au_id VARCHAR(4),
+        cat_id VARCHAR(4),
+        pub_id VARCHAR(4),
+        sup_id VARCHAR(4),
+        price DECIMAL(10,2),
+        qty INT(3),
+        FOREIGN KEY (au_id) REFERENCES author(au_id) ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (cat_id) REFERENCES category(cat_id) ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (pub_id) REFERENCES publisher(pub_id) ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (sup_id) REFERENCES supplier(sup_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-create table Inventory(
-    In_ID varchar(100) primary key,
-    Item_Type varchar(50),
-    Item_Description varchar(250),
-    Qty int,
-    Prod_ID VARCHAR(50)
+CREATE TABLE employee (
+        emp_id VARCHAR(4) PRIMARY KEY,
+        emp_name VARCHAR(50),
+        emp_role VARCHAR(15),
+        emp_salary DECIMAL(10,2),
+        emp_add VARCHAR(50),
+        emp_num VARCHAR(15),
+        emp_mail VARCHAR(30)
 );
 
-create table Cash_Book(
-    CB_No varchar(50) primary key ,
-    Sup_ID varchar(50),
-    Mat_ID varchar(50),
-    In_ID varchar(100),
-    Description varchar(50),
-    Qty int,
-    Amount decimal(10,0),
-    Transaction_Date date,
-    foreign key (Sup_ID) references Supplier(Sup_ID),
-    foreign key (Mat_ID) references Material(Mat_ID)
-
-
+CREATE TABLE employee_payroll (
+        payroll_id VARCHAR(5) PRIMARY KEY,
+        emp_id VARCHAR(4),
+        payroll_date DATE,
+        basic_salary DECIMAL(10,2),
+        deductions DECIMAL(10,2),
+        bonuses DECIMAL(10,2),
+        net_salary DECIMAL(10,2) GENERATED ALWAYS AS (basic_salary - deductions + bonuses) STORED,
+        FOREIGN KEY (emp_id) REFERENCES employee(emp_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-create table Production(
-    Prod_ID varchar(50) primary key,
-    Pro_Name varchar(100),
-    Qty decimal(10,1)
+DELIMITER $$
 
-);
+CREATE TRIGGER update_basic_salary
+    AFTER UPDATE ON employee
+    FOR EACH ROW
+BEGIN
+    UPDATE employee_payroll
+    SET basic_salary = NEW.emp_salary
+    WHERE emp_id = NEW.emp_id;
+    END$$
 
-create table Production(
+DELIMITER ;
 
-   Prod_ID varchar(50) primary key,
-   Pro_Name varchar(100),
-   Qty decimal(10,1),
-   Prod_Name varchar(200)
+    CREATE TABLE employee_leave (
+        leave_id VARCHAR(4) PRIMARY KEY,
+        emp_id VARCHAR(4),
+        leave_type VARCHAR(15) CHECK (leave_type IN ('Sick', 'Vacation', 'Personal')),
+        start_date DATE,
+        end_date DATE,
+        status VARCHAR(10) CHECK (status IN ('Approved', 'Pending', 'Rejected')),
+        FOREIGN KEY (emp_id) REFERENCES employee(emp_id) ON DELETE CASCADE
+    );
 
-);
+    CREATE TABLE orders (
+    order_id VARCHAR(5) PRIMARY KEY,
+    cus_id VARCHAR(5),
+    order_date DATE,
+    FOREIGN KEY (cus_id) REFERENCES customer(cus_id) ON DELETE CASCADE ON UPDATE CASCADE
+    );
 
+    CREATE TABLE order_details (
+    order_id VARCHAR(5),
+    b_id VARCHAR(4),
+    quantity INT(3),
+    price DECIMAL(10,2),
+    PRIMARY KEY (order_id, b_id),
+    FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (b_id) REFERENCES book(b_id) ON DELETE CASCADE ON UPDATE CASCADE
+    );
 
-
-create table Material_Usage(
-    MatUs_ID varchar(20)primary key,
-    Prod_ID varchar(50),
-    Mat_Milk varchar(100),
-    Mat_Suguer varchar(100),
-    Mat_Gelatin varchar(100),
-    foreign key (Prod_ID) references Production(Prod_ID)
-
-);
-
-create table Packing(
-    Pac_ID varchar(50) primary key,
-    Prod_ID varchar(50),
-    Emp_ID varchar(50),
-    Packing_Type  varchar(150),
-    Packing_Description varchar(200),
-    Pack_date date,
-    Expire_date date,
-    Qty decimal(10,2),
-    foreign key  (Prod_ID) references Production(Prod_ID),
-    foreign key  (Emp_ID) references  Employee(Emp_ID)
-
-);
-
-create table Stock(
-    Stock_ID varchar(100) primary key,
-    Pac_ID varchar(50),
-    Product_Name varchar(255),
-    Qty decimal (10,2),
-    Manfac_date date,
-    Expire_date date,
-    Pack_Type varchar(50),
-    Unit_Price VARCHAR(50),
-
-    foreign key (Pac_ID) references Packing (Pac_ID)
-);
-
-create table Orders(
-    order_id    varchar(10) primary key ,
-    cust_id varchar(10),
-    order_date  date,
-    foreign key (cust_id) references Customer (cust_id)
-);
-
-create table OrderDetails(
-    order_id varchar(10),
-    stock_id varchar(10),
-    quantity int,
-    price  decimal(10, 2),
-    foreign key (order_id) references Orders (order_id),
-    foreign key (stock_id) references Stock (Stock_ID)
-);
-
+    CREATE TABLE owner (
+    id VARCHAR(5) PRIMARY KEY,
+    name VARCHAR(50),
+    address VARCHAR(50),
+    p_num VARCHAR(10)
+    );
