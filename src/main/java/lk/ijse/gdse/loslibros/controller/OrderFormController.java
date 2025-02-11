@@ -9,11 +9,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import lk.ijse.gdse.loslibros.bo.BOFactory;
+import lk.ijse.gdse.loslibros.bo.custom.BookBO;
+import lk.ijse.gdse.loslibros.bo.custom.CustomerBO;
 import lk.ijse.gdse.loslibros.bo.custom.PalaceOrderBO;
-import lk.ijse.gdse.loslibros.dao.custom.BookDAO;
-import lk.ijse.gdse.loslibros.dao.custom.CustomerDAO;
-import lk.ijse.gdse.loslibros.dao.custom.impl.BookDAOImpl;
-import lk.ijse.gdse.loslibros.dao.custom.impl.CustomerDAOImpl;
 import lk.ijse.gdse.loslibros.dto.BookDTO;
 import lk.ijse.gdse.loslibros.dto.CustomerDTO;
 import lk.ijse.gdse.loslibros.dto.OrderDTO;
@@ -76,10 +74,8 @@ public class OrderFormController implements Initializable {
     @FXML
     private TextField txtAddToCartQty;
 
-
-
-    CustomerDAO customerDAO = new CustomerDAOImpl();
-    BookDAO bookDAO = new BookDAOImpl();
+    BookBO bookBO = (BookBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.BOOK);
+    CustomerBO customerBO = (CustomerBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.CUSTOMER);
     PalaceOrderBO orderBO = (PalaceOrderBO) BOFactory.getInstance().getSuperBO(BOFactory.BOType.PLACEORDER);
 
     @FXML
@@ -207,7 +203,7 @@ public class OrderFormController implements Initializable {
     void cmbBookOnAction(ActionEvent event) throws SQLException {
 
         String selectedBookId = cmbBookId.getSelectionModel().getSelectedItem();
-        BookDTO bookDTO = bookDAO.findBookById(selectedBookId);
+        BookDTO bookDTO = bookBO.findBookById(selectedBookId);
 
         if (bookDTO != null) {
 
@@ -221,7 +217,7 @@ public class OrderFormController implements Initializable {
     @FXML
     void cmbCustomerOnAction(ActionEvent event) throws SQLException {
         String selectedCustomerId = cmbCustomerId.getSelectionModel().getSelectedItem();
-        CustomerDTO customerDTO = customerDAO.findCusById(selectedCustomerId);
+        CustomerDTO customerDTO = customerBO.findCusById(selectedCustomerId);
 
         if (customerDTO != null) {
 
@@ -284,14 +280,14 @@ public class OrderFormController implements Initializable {
     }
 
     private void loadBookIds() throws SQLException {
-        ArrayList<String> bookIds = bookDAO.getAllBookIds();
+        ArrayList<String> bookIds = bookBO.getAllBookIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(bookIds);
         cmbBookId.setItems(observableList);
     }
 
     private void loadCustomerIds() throws SQLException {
-        ArrayList<String> customerIds = customerDAO.getAllCustomerIds();
+        ArrayList<String> customerIds = customerBO.getAllCustomerIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(customerIds);
         cmbCustomerId.setItems(observableList);

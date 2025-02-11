@@ -42,4 +42,14 @@ public class CustomerBOImpl implements CustomerBO {
 
     }
 
+    @Override
+    public ArrayList<String> getAllCustomerIds() throws SQLException {
+        return customerDAO.getAllCustomerIds();
+    }
+
+    @Override
+    public CustomerDTO findCusById(String selectedCusId) throws SQLException {
+        return customerDAO.findCusById(selectedCusId);
+    }
+
 }

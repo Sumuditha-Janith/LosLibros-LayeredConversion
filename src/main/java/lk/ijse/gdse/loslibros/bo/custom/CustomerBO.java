@@ -18,4 +18,8 @@ public interface CustomerBO extends SuperBO {
 
     public boolean delete(String customerId) throws SQLException ;
 
+    public ArrayList<String> getAllCustomerIds() throws SQLException;
+
+    public CustomerDTO findCusById(String selectedCusId) throws SQLException;
+
 }

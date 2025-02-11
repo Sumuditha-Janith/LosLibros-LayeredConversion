@@ -2,6 +2,7 @@ package lk.ijse.gdse.loslibros.bo.custom;
 
 import lk.ijse.gdse.loslibros.bo.SuperBO;
 import lk.ijse.gdse.loslibros.dto.AuthorDTO;
+import lk.ijse.gdse.loslibros.dto.CategoryDTO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,4 +18,8 @@ public interface AuthorBO extends SuperBO {
     public boolean update(AuthorDTO authorDTO) throws SQLException;
 
     public boolean delete(String dto) throws SQLException;
+
+    public ArrayList<String> getAllAuthorIds() throws SQLException;
+
+    public AuthorDTO findAuthById(String selectedAuthorId) throws SQLException;
 }

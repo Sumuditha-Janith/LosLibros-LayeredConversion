@@ -39,4 +39,14 @@ AuthorDAO authorDAO = (AuthorDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAO
     public boolean delete(String dto) throws SQLException {
         return authorDAO.delete(dto);
     }
+
+    @Override
+    public ArrayList<String> getAllAuthorIds() throws SQLException {
+        return authorDAO.getAllAuthorIds();
+    }
+
+    @Override
+    public AuthorDTO findAuthById(String selectedAuthorId) throws SQLException {
+        return authorDAO.findAuthById(selectedAuthorId);
+    }
 }
